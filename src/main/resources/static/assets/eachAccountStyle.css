@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+*{
+    margin: 0;
+    /* border: 1px solid red; */
+}
+body {
+    min-height: 100vh;
+    font-family: 'Quicksand';
+    color: #C0C0C0;
+    background: linear-gradient(135deg, hsl(230, 40%, 12%), hsl(230, 20%, 7%));
+    min-width: 100%;
+}
+.divTabla{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+form{
+    background-color: rgb(190, 210, 212);
+}
+#accountsTable{
+    display: flex;
+    flex-direction: column;
+}
+
+.cajaTitulo{
+    font-weight:300;
+    text-align:center;
+    font-size:32px;
+    height:40px;
+    overflow:hidden;
+    
+}
+
+.div-mensaje {
+    display:inline-block;
+    overflow:hidden;
+    white-space:nowrap;
+}
+
+.div-mensaje:first-of-type {
+    animation: showup 15s infinite;
+}
+
+.div-mensaje:last-of-type {
+    width:0px;
+    animation: reveal 15s infinite;
+}
+
+.div-mensaje:last-of-type span {
+    margin-left:-355px;
+    animation: slidein 15s infinite;
+}
+@keyframes showup {
+    0% {opacity:0;}
+    20% {opacity:1;}
+    80% {opacity:1;}
+    100% {opacity:0;}
+}
+
+@keyframes slidein {
+    0% { margin-left:-800px; }
+    20% { margin-left:-800px; }
+    35% { margin-left:0px; }
+    100% { margin-left:0px; }
+}
+
+@keyframes reveal {
+    0% {opacity:0;width:0px;}
+    20% {opacity:1;width:0px;}
+    30% {width:160px;}
+    80% {opacity:1;}
+    100% {opacity:0;width:155px;}
+}
+
+/* TABLA */
+table {
+    border-collapse: collapse;
+    margin: 20px auto;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); */
+    width: 90%;
+    max-width: 800px;
+    overflow-x: auto;
+    text-align: center;
+    
+
+}
+
+th,
+td {
+    padding: 0.5em;
+    border: 1px solid #444;
+    color: #fff;
+    font-size: 1rem;
+    color: #C0C0C0;
+}
+
+th {
+    background-color: #333;
+    font-weight: bold;
+    font-size: 1.2rem;
+    
+}
+
+td {
+    background-color: #444;
+}
+
+tr:nth-child(even) td {
+    background-color: #2a2b2f;
+}
+
+/* GO BACK BUTTON */
+.goBackButton:hover{
+    transform: scale(1.1);
+}
+.DEBIT{
+    color: rgb(234, 53, 53);
+    font-weight: 900;
+}
+.CREDIT{
+    color: rgb(36, 133, 36);
+    font-weight: 900;
+}

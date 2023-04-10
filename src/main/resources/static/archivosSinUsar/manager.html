@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link rel="shortcut icon" href="https://img1.freepng.es/20180203/clq/kisspng-wire-transfer-payment-bank-electronic-funds-transf-bank-png-image-5a75bc9799cd37.82082639151766543163.jpg" type="image/x-icon">
+    <title>Home Banking</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body id="app">
+    <h1 style="text-align: center;">Home Banking</h1>
+    <div style="min-height: 70vh; width: 100%; display: flex; align-items: start; justify-content: center; gap: 3rem;">
+        <form class="col-5" style="margin: 0;  border: 1px solid rgb(141, 74, 74); border-radius: 10px; padding: 1rem;" @submit="addClient">
+            <h2>Client Manager</h2>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="email" required>
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputName" class="form-label">Name</label>
+                <input type="text" class="form-control" id="exampleInputName" v-model="firstName" required>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputLastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="exampleInputLastName" v-model="lastName" required>
+            </div>
+            <button type="submit" class="btn btn-primary" >Submit</button>
+        </form>
+        <div class="col-5" style="background-color: rgb(190, 210, 212); border: 1px solid brown; border-radius: 10px; padding: 1rem; margin-bottom: 2rem;" class="divBottom">
+            <table class="table" >  
+                <h2>Client List</h2>
+                <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">E-Mail</th>
+                    <th scope="col">Accounts</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="i of data">
+                    <td>{{i.firstName}}</td>
+                    <td>{{i.lastName}}</td>
+                    <td>{{i.email}}</td>
+                    <td style="display: flex; justify-content: center; align-items: center;"><a :href="'./accounts.html?id=' + i.id"><img src="https://cdn-icons-png.flaticon.com/512/63/63830.png" alt="" style="height: 1rem;"></a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div style="width: 100%; align-items: center; display: flex; justify-content: center; flex-direction: column;"> 
+        <div class="col-4 align-items-center" style="background-color: rgb(190, 210, 212); border: 1px solid brown; border-radius: 10px; padding: 1rem;">
+            <h2 style="text-align: center;">Client REST response</h2>
+            <pre style="overflow: scroll; height: 35rem;"><p>{{data}}</p></pre>
+        </div>  
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./manager.js"></script>
+</body>
+</html>
