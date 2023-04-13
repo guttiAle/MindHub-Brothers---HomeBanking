@@ -49,8 +49,8 @@ public class AccountDTO {
     public void setBalance(double balance) {
         this.balance = balance;
     }
+
     public Set<TransactionDTO> getTransactions() {
         return transactions;
     }
-
 }
