@@ -27,13 +27,4 @@ public class ClientLoanDTO{
 
     public long getLoanId() {return loanId;}
 
-    //    SETTERS
-
-    public void setName(String name) {this.name = name;}
-
-    public void setAmount(double amount) {this.amount = amount;}
-
-    public void setLoanId(long loanId) {this.loanId = loanId;}
-
-    public void setPayments(int payments) {this.payments = payments;}
 }
