@@ -18,15 +18,14 @@ public class ClientController {
     @Autowired
     private ClientRepository repository;
 
-@RequestMapping("/api/clients")
-public List<ClientDTO> getClient() {
-    return repository.findAll().stream().map(client -> new ClientDTO(client)).collect(toList());
-}
+    @RequestMapping("/api/clients")
+    public List<ClientDTO> getClient() {
+        return repository.findAll().stream().map(client -> new ClientDTO(client)).collect(toList());
+    }
 
-@RequestMapping("/api/clients/{id}")
-public ClientDTO getClient(@PathVariable Long id){
-    Optional<Client> optionalClient = repository.findById(id);
-    return optionalClient.map(client -> new ClientDTO(client)).orElse(null);
-}
-
+    @RequestMapping("/api/clients/{id}")
+    public ClientDTO getClient(@PathVariable Long id){
+//        Optional<Client> optionalClient = repository.findById(id);
+        return new ClientDTO(repository.findById(id).orElse(null));
+    }
 }

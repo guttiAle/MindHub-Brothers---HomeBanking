@@ -22,11 +22,10 @@ public class Transaction {
     private Account account;
     private Transaction(){ };
 
-    public Transaction(double amount, String description, LocalDateTime date, Account account, TransactionType type) {
+    public Transaction(double amount, String description, LocalDateTime date, TransactionType type) {
         this.amount = amount;
         this.description = description;
         this.date = date;
-        this.account = account;
         this.type = type;
     }
 
@@ -51,6 +50,7 @@ public class Transaction {
     public void setType(TransactionType type) {
         this.type = type;
     }
+
     //    Getters
 
     public double getAmount() {

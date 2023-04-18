@@ -46,15 +46,12 @@ public class ClientLoan {
 
     public double getAmount() {return amount;}
 
-    public int getPayments() {
-        return payments;
-    }
+    public int getPayments() {return payments;}
 
     public Client getClient() {return client;}
 
-    public Loan getLoan() {
-        return loan;
-    }
+    public Loan getLoan() {return loan;}
+
 //    SETTERS
 
     public void setAmount(double amount) {this.amount = amount;}
@@ -66,9 +63,7 @@ public class ClientLoan {
 
     public void setClient(Client client) {this.client = client;}
 
-    public void setLoan(Loan loan) {
-        this.loan = loan;
-    }
+    public void setLoan(Loan loan) {this.loan = loan;}
 
     public void setName(String name) {
         this.name = name;

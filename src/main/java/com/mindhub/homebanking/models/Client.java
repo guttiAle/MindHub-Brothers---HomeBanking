@@ -22,44 +22,64 @@ public class Client {
     private Set<Account> accounts = new HashSet<>();
     @OneToMany(mappedBy="client", fetch=FetchType.EAGER)
     private Set<ClientLoan> clientLoans = new HashSet<>();
+
+    @OneToMany(mappedBy="cardHolder", fetch=FetchType.EAGER)
+    private Set<Card> cards = new HashSet<>();
+
     public Client() { }
 
     public Client(String first, String last, String mail) {
-        firstName = first;
-        lastName = last;
-        email = mail;
+        this.firstName = first;
+        this.lastName = last;
+        this.email = mail;
+    }
+
+//    GETTERS
+
+    public long getId() {
+        return id;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
     public String getEMail() {
         return email;
     }
 
-    public void setEMail(String email) {
-        this.email = email;
+    public Set<Account> getAccount() {return accounts;}
+
+    public Set<ClientLoan> getClientLoans() {
+        return clientLoans;
     }
 
-    public Set<Account> getAccount() {
-        return accounts;
+    public List<Loan> getLoans() {
+        return clientLoans.stream().map(clientLoan -> clientLoan.getLoan()).collect(toList());
     }
 
-    public void setClientLoan(Set<ClientLoan> clientLoan) {
-        this.clientLoans = clientLoan;
-    }
+    public Set<Card> getCards() {return cards;}
+
+
+    //    SETTERS
+
+    public void setFirstName(String firstName) {this.firstName = firstName;}
+
+    public void setLastName(String lastName) {this.lastName = lastName;}
+
+    public void setEMail(String email) {this.email = email;}
+
+    public void setClientLoan(Set<ClientLoan> clientLoan) {this.clientLoans = clientLoan;}
+
+    public void setAccounts(Set<Account> accounts) {this.accounts = accounts;}
+
+    public void setCards(Set<Card> cards) {this.cards = cards;}
+
+    //    ADDERS
 
     public void addAccount(Account account) {
         account.setClient(this);
@@ -69,15 +89,8 @@ public class Client {
         clientLoan.setClient(this);
         clientLoans.add(clientLoan);
     }
-
-    public Set<ClientLoan> getClientLoans() {
-        return clientLoans;
-    }
-
-    public List<Loan> getLoans() {
-        return clientLoans.stream().map(clientLoan -> clientLoan.getLoan()).collect(toList());
-    }
-    public long getId() {
-        return id;
+    public void addCardHolder(Card cardHolder){
+        cardHolder.setCardHolder(this);
+        cards.add(cardHolder);
     }
 }

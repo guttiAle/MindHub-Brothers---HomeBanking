@@ -18,7 +18,7 @@ public class HomebankingApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initData(ClientRepository repository, AccountRepository account, TransactionRepository transactionRepo, LoanRepository loanRepo, ClientLoanRepository clientLoanRepo) {
+	public CommandLineRunner initData(ClientRepository repository, AccountRepository account, TransactionRepository transactionRepo, LoanRepository loanRepo, ClientLoanRepository clientLoanRepo, CardRepository cardRepo) {
 		return (args) -> {
 //			CLIENTS
 			Client client1 = new Client("Melba", "Morel", "melba@mindhub.com");
@@ -27,25 +27,34 @@ public class HomebankingApplication {
 			repository.save(client2);
 
 //			ACCOUNTS
-			Account account1 = new Account("VIN001", LocalDateTime.now(), 5000, client1);
-			Account account2 = new Account("VIN002", LocalDateTime.now().plusDays(1), 7500, client1);
-			Account account3 = new Account("VIN003", LocalDateTime.now(), 15000, client2);
+			Account account1 = new Account("VIN001", LocalDateTime.now(), 5000);
+			Account account2 = new Account("VIN002", LocalDateTime.now().plusDays(1), 7500);
+			Account account3 = new Account("VIN003", LocalDateTime.now(), 15000);
+			client1.addAccount(account1);
+			client1.addAccount(account2);
+			client2.addAccount(account3);
 			account.save(account1);
 			account.save(account2);
 			account.save(account3);
 
 //			TRANSACTIONS
-			Transaction transaction1 = new Transaction(-1500, "Compra calculadora", LocalDateTime.now(), account1, TransactionType.DEBIT);
-			Transaction transaction2 = new Transaction(4456500.58, "Tranferencia recibida", LocalDateTime.now(), account1, TransactionType.CREDIT);
-			Transaction transaction3 = new Transaction(4000.5, "Prestamo de familiar", LocalDateTime.now(), account3, TransactionType.CREDIT);
+			Transaction transaction1 = new Transaction(-1500, "Compra calculadora", LocalDateTime.now(), TransactionType.DEBIT);
+			account1.addTransaction(transaction1);
+			Transaction transaction2 = new Transaction(4456500.58, "Tranferencia recibida", LocalDateTime.now(), TransactionType.CREDIT);
+			account1.addTransaction(transaction2);
+			Transaction transaction3 = new Transaction(4000.5, "Prestamo de familiar", LocalDateTime.now(), TransactionType.CREDIT);
+			account3.addTransaction(transaction3);
 			transactionRepo.save(transaction1);
 			transactionRepo.save(transaction2);
 			transactionRepo.save(transaction3);
 
 
-			Transaction transaction4 = new Transaction(-700, "Compra en supermercado", LocalDateTime.now(), account1, TransactionType.DEBIT);
-			Transaction transaction5 = new Transaction(15400.50, "Venta de celular", LocalDateTime.now(), account1, TransactionType.CREDIT);
-			Transaction transaction6 = new Transaction(-245.7, "Compra en panadería", LocalDateTime.now(), account1, TransactionType.DEBIT);
+			Transaction transaction4 = new Transaction(-700, "Compra en supermercado", LocalDateTime.now(), TransactionType.DEBIT);
+			account1.addTransaction(transaction4);
+			Transaction transaction5 = new Transaction(15400.50, "Venta de celular", LocalDateTime.now(), TransactionType.CREDIT);
+			account1.addTransaction(transaction5);
+			Transaction transaction6 = new Transaction(-245.7, "Compra en panadería", LocalDateTime.now(), TransactionType.DEBIT);
+			account1.addTransaction(transaction6);
 			transactionRepo.save(transaction4);
 			transactionRepo.save(transaction5);
 			transactionRepo.save(transaction6);
@@ -81,6 +90,18 @@ public class HomebankingApplication {
 			client2.addClientLoan(clientLoan4);
 			loan3.addClientLoan(clientLoan4);
 			clientLoanRepo.save(clientLoan4);
+
+//			CARDS
+			Card card1 = new Card("Melba Morel", CardType.DEBIT, CardColor.GOLD, Long.parseLong("1234567891123456"), 378, LocalDateTime.now(), LocalDateTime.now().plusYears(5));
+			client1.addCardHolder(card1);
+			cardRepo.save(card1);
+			Card card2 = new Card("Melba Morel", CardType.CREDIT, CardColor.TITANIUM, Long.parseLong("1123456123456789"), 951, LocalDateTime.now(), LocalDateTime.now().plusYears(5));
+			client1.addCardHolder(card2);
+			cardRepo.save(card2);
+
+			Card card3 = new Card("Santiago Hermosilla", CardType.CREDIT, CardColor.SILVER, Long.parseLong("6789112123456534"), 753, LocalDateTime.now(), LocalDateTime.now().plusYears(5));
+			client2.addCardHolder(card3);
+			cardRepo.save(card3);
 		};
 	}
 }

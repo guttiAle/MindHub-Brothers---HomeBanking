@@ -45,7 +45,13 @@ public class Loan {
 
     public Set<ClientLoan> getClientLoans() {return clientLoans;}
 
+    @JsonIgnore
+    public List<Client> getClients() {
+        return clientLoans.stream().map(clientLoan -> clientLoan.getClient()).collect(Collectors.toList());
+    }
+
 //    SETTERS
+
     public void setClientLoans(Set<ClientLoan> clientLoans) {this.clientLoans = clientLoans;}
 
     public void setName(String name) {this.name = name;}
@@ -54,21 +60,19 @@ public class Loan {
 
     public void setPayments(List<Integer> payments) {this.payments = payments;}
 
+//    ADDERS
+
     public void addClientLoan(ClientLoan clientLoan) {
         clientLoan.setLoan(this);
         clientLoans.add(clientLoan);
     }
-    @JsonIgnore
-    public List<Client> getClients() {
-        return clientLoans.stream().map(clientLoan -> clientLoan.getClient()).collect(Collectors.toList());
-    }
-    @Override
-    public String toString() {
-        return "Loan{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", maxAmount=" + maxAmount +
-                ", payments=" + payments +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Loan{" +
+//                "id=" + id +
+//                ", name='" + name + '\'' +
+//                ", maxAmount=" + maxAmount +
+//                ", payments=" + payments +
+//                '}';
+//    }
 }

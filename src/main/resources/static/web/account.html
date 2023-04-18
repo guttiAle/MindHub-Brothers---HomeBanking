@@ -9,9 +9,31 @@
     <link rel="stylesheet" href="./assets/eachAccountStyle.css">
     <title>Account</title>
 </head>
-<body style="background: linear-gradient(135deg, hsl(230, 40%, 12%), hsl(230, 20%, 7%)); " id="app">
-    <div class="cajaTitulo" style="height: 12rem; width: 100%; display: flex; justify-content: space-around; align-items: center;">
-        <img src="./assets/images/logoMindHubBrothers.png" style="height: 12rem;" alt="">
+<body style="background: linear-gradient(135deg, hsl(230, 40%, 12%), hsl(230, 20%, 7%)); " id="app" style="width: 100%;">
+    <nav class="navbar navbar-expand-lg" style="width: 100%;  padding: 0;" id="navigationBar">
+        <div class="container-fluid" style="min-height: 5rem;">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse m-0" id="navbarNav" style="width: 5rem !important; gap: 1rem;">
+                        <button>
+                            <span><a href="#" style="text-decoration: none;">HOME</a></span>
+                        </button>
+                        <button id="activeButton">
+                            <span><a href="#" style="text-decoration: none;">ACCOUNT</a></span>
+                        </button>
+                        <button>
+                            <span><a href="./cards.html" style="text-decoration: none;">CARDS</a></span>
+                        </button>
+                        <button>
+                            <span><a href="#" style="text-decoration: none;">CONTACT</a></span>
+                        </button>
+            </div>
+            <img src="./assets/images/noTextLogo.png" style="height: 4rem;" alt="">
+        </div>
+    </nav>
+    <div class="cajaTitulo" style="height: 9rem; width: 100%; display: flex; justify-content: space-around; align-items: center;">
+        <h2 style="font-size: 32px; color:#C0C0C0; font-weight: 100;" class="m-0">Transactions:</h2>
         <div style="width: 50%; height: 3rem;">
             <div class="div-mensaje">
                 MindHub Brothers.
