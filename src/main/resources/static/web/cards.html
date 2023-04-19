@@ -11,19 +11,19 @@
 </head>
 <body id="app">
         <nav class="navbar navbar-expand-lg" style="width: 100%;  padding: 0;" id="navigationBar">
-        <div class="container-fluid" style="min-height: 5rem;">
+        <div class="container-fluid" style="min-height: 5rem; border-bottom: 1px solid #C0C0C0;">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" >
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse m-0" id="navbarNav" style="width: 5rem !important; gap: 1rem;">
                         <button>
-                            <span><a href="#" style="text-decoration: none;">HOME</a></span>
+                            <span><a href="./index.html" style="text-decoration: none;">HOME</a></span>
                         </button>
                         <button>
                             <span><a href="./accounts.html" style="text-decoration: none;">ACCOUNT</a></span>
                         </button>
                         <button id="activeButton">
-                            <span><a href="#" style="text-decoration: none;">CARDS</a></span>
+                            <span><a href="#" style="text-decoration: none;">MY CARDS</a></span>
                         </button>
                         <button>
                             <span><a href="#" style="text-decoration: none;">CONTACT</a></span>
@@ -33,8 +33,8 @@
         </div>
     </nav>
     <div class="cajaTitulo" style="min-height: 9rem; width: 100%; display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;">
-        <h2 style="font-size: 32px; color:#C0C0C0; font-weight: 100;" class="m-0">{{data.firstName}} {{data.lastName}}</h2>
-        <div style="width: 50%; height: 3rem;">
+        <h2 style="font-size: 32px; color:#C0C0C0; font-weight: 100;" class="m-0 col-12 col-sm-6">Active cards:</h2>
+        <div style="height: 3rem;" class="col-12 col-sm-6">
             <div class="div-mensaje">
                 MindHub Brothers.
             </div>

@@ -11,19 +11,19 @@
 </head>
 <body id="app" style="display: flex; flex-direction: column; align-items: center; width: 100%;" >
     <nav class="navbar navbar-expand-lg" style="width: 100%;  padding: 0;" id="navigationBar">
-        <div class="container-fluid" style="min-height: 5rem;">
+        <div class="container-fluid" style="min-height: 5rem; border-bottom: 1px solid #C0C0C0; ">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" >
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse m-0" id="navbarNav" style="width: 5rem !important; gap: 1rem;">
                         <button>
-                            <span><a href="#" style="text-decoration: none;">HOME</a></span>
+                            <span><a href="./index.html" style="text-decoration: none;">HOME</a></span>
                         </button>
                         <button id="activeButton">
                             <span><a href="#" style="text-decoration: none;">ACCOUNT</a></span>
                         </button>
                         <button>
-                            <span><a href="./cards.html" style="text-decoration: none;">CARDS</a></span>
+                            <span><a href="./cards.html" style="text-decoration: none;">MY CARDS</a></span>
                         </button>
                         <button>
                             <span><a href="#" style="text-decoration: none;">CONTACT</a></span>
@@ -33,8 +33,8 @@
         </div>
     </nav>
     <div class="cajaTitulo" style="min-height: 9rem; width: 100%; display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;">
-        <h2 style="font-size: 32px; color:#C0C0C0; font-weight: 100;" class="m-0">Welcome {{data.firstName}} {{data.lastName}}</h2>
-        <div style="width: 50%; height: 3rem;">
+        <h2 style="font-size: 32px; color:#C0C0C0; font-weight: 100;" class="m-0 col-12 col-sm-6">Welcome {{data.firstName}} {{data.lastName}}</h2>
+        <div style="height: 3rem;" class="col-12 col-sm-6">
             <div class="div-mensaje">
                 MindHub Brothers.
             </div>
@@ -43,60 +43,88 @@
             </div>
         </div>
     </div>
-    <div class="bodyCards">
-        <div class="container" style="padding: 0;">
-            <div class="card" v-for="i of data.accounts">
-                <div class="box">
-                    <div class="content" >
-                        <h2 style="font-size: 2rem;"><img src="./assets/images/logoMindHubBrothers.png" alt="" style="height: 5rem;"></h2>
-                        <h3>{{i.number}}</h3>
-                        <p style="font-weight: 800;">Balance: ${{i.balance.toLocaleString('es-MX')}}</p>
-                        <p>Account created on {{i.creationDate.slice(0, 10)}} <br> at {{i.creationDate.slice(11, 16)}}</p>
-                        <a :href="'./account.html?id=' + i.id">+INFO</a>
+    <!-- BODY BOX -->
+    <div class="bodyBox" style="width: 100%; display: flex; flex-wrap: wrap; border-top: 1px solid #C0C0C0;">
+        <div class="bodyCards col-12 col-sm-8" style="border-right: 1px solid #C0C0C0; margin-top: 2rem;">
+            <div style="width: 100%;">
+                <h2 style="margin-left: 2rem; margin-left: 2rem;">Your accounts:</h2>
+            </div>
+            <div class="container" style="padding: 0; margin: 0;">
+                <div class="card" v-for="i of data.accounts" >
+                    <div class="box">
+                        <div class="content" >
+                            <h2 style="font-size: 2rem;"><img src="./assets/images/logoMindHubBrothers.png" alt="" style="height: 5rem;"></h2>
+                            <h3>{{i.number}}</h3>
+                            <p style="font-weight: 800;">Balance: ${{i.balance.toLocaleString('es-MX')}}</p>
+                            <p>Account created on: <br> {{i.creationDate.slice(0, 10)}} at {{i.creationDate.slice(11, 16)}}</p>
+                            <a :href="'./account.html?id=' + i.id">+INFO</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="divModal">
-        <!-- Button trigger modal -->
-        <div class="center">
-            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" style="font-size: 1.5rem;">
-                See your loans
-            </button>
-        </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content" style="background: linear-gradient(135deg, hsl(230, 40%, 12%), hsl(230, 20%, 7%));">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Loans:</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" v-if="data.loans.length > 0">
-                        <table style="width: 100%;">
-                            <thead>
-                                <tr style="height: 3rem; border-bottom: 2px solid #C0C0C0;">
-                                    <th scope="col" style="width: 33%; text-align: center;">TYPE</th>
-                                    <th scope="col" style="width: 33%; text-align: center;">AMOUNT</th>
-                                    <th scope="col" style="width: 33%; text-align: center;">PAYMENTS</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="j of data.loans" style="height: 3rem;">
-                                    <td style="text-align: center;">{{j.name}}</td>
-                                    <td style="text-align: center;">$ {{j.amount.toLocaleString('es-MX')}}</td>
-                                    <td style="text-align: center;">{{j.payments}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="modal-body" v-else style="display: flex; justify-content: center;">
-                        <h4>You do not have any active loan</h4>
+        <div class="divModal col-12 col-sm-4" style="margin-top: 2rem;">
+            <h2 style="margin-left: 2rem;">Your loans:</h2>
+            <div class="modal-body" v-if="data.loans.length > 0" style="margin: 30px;">
+                <table style="width: 100%;">
+                    <thead>
+                        <tr style="height: 3rem; border-bottom: 2px solid #C0C0C0;">
+                            <th scope="col" style="width: 33%; text-align: center;">TYPE</th>
+                            <th scope="col" style="width: 33%; text-align: center;">AMOUNT</th>
+                            <th scope="col" style="width: 33%; text-align: center;">PAYMENTS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="j of data.loans" style="height: 3rem;">
+                            <td style="text-align: center;">{{j.name}}</td>
+                            <td style="text-align: center;">$ {{j.amount.toLocaleString('es-MX')}}</td>
+                            <td style="text-align: center;">{{j.payments}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-body" v-else style="display: flex; justify-content: center;">
+                <h4 style="margin-top: 2rem;">You do not have any active loan</h4>
+            </div>
+            <!-- Button trigger modal -->
+            <!-- <div class="center">
+                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" style="font-size: 1.5rem;">
+                    See your loans
+                </button>
+            </div> -->
+    
+            <!-- Modal -->
+            <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="background: linear-gradient(135deg, hsl(230, 40%, 12%), hsl(230, 20%, 7%));">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Loans:</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" v-if="data.loans.length > 0">
+                            <table style="width: 100%;">
+                                <thead>
+                                    <tr style="height: 3rem; border-bottom: 2px solid #C0C0C0;">
+                                        <th scope="col" style="width: 33%; text-align: center;">TYPE</th>
+                                        <th scope="col" style="width: 33%; text-align: center;">AMOUNT</th>
+                                        <th scope="col" style="width: 33%; text-align: center;">PAYMENTS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="j of data.loans" style="height: 3rem;">
+                                        <td style="text-align: center;">{{j.name}}</td>
+                                        <td style="text-align: center;">$ {{j.amount.toLocaleString('es-MX')}}</td>
+                                        <td style="text-align: center;">{{j.payments}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-body" v-else style="display: flex; justify-content: center;">
+                            <h4>You do not have any active loan</h4>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 
