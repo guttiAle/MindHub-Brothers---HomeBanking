@@ -7,5 +7,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource // Indica a Spring que debe generar el código necesario para que se pueda administrar la data de
 // la aplicación desde el navegador usando JSON.
 public interface ClientRepository extends JpaRepository<Client, Long> {
-//    List<Client> findByLastName(String lastName);
+    Client findByEmail(String email);
 }

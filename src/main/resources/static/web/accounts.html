@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-    <link rel="shortcut icon" href="./assets/images/logoMindHubBrothers.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./assets/images/noTextLogo.png" type="image/x-icon">
     <title>Accounts</title>
     <link rel="stylesheet" href="./assets/style.css">
 </head>
@@ -28,12 +28,15 @@
                         <button>
                             <span><a href="#" style="text-decoration: none;">CONTACT</a></span>
                         </button>
+                        <button @click.prevent="logout">
+                            <span><a href="#" style="text-decoration: none;">LOG OUT</a></span>
+                        </button>
             </div>
             <img src="./assets/images/noTextLogo.png" style="height: 4rem;" alt="">
         </div>
     </nav>
     <div class="cajaTitulo" style="min-height: 9rem; width: 100%; display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;">
-        <h2 style="font-size: 32px; color:#C0C0C0; font-weight: 100;" class="m-0 col-12 col-sm-6">Welcome {{data.firstName}} {{data.lastName}}</h2>
+        <h2 style="font-size: 42px; color:#C0C0C0; font-weight: 700; " class="m-0 col-12 col-sm-6">Welcome {{data.firstName}} {{data.lastName}}</h2>
         <div style="height: 3rem;" class="col-12 col-sm-6">
             <div class="div-mensaje">
                 MindHub Brothers.
@@ -76,7 +79,7 @@
                     </thead>
                     <tbody>
                         <tr v-for="j of data.loans" style="height: 3rem;">
-                            <td style="text-align: center;">{{j.name}}</td>
+                            <td style="text-align: center;">{{j.loanName}}</td>
                             <td style="text-align: center;">$ {{j.amount.toLocaleString('es-MX')}}</td>
                             <td style="text-align: center;">{{j.payments}}</td>
                         </tr>
