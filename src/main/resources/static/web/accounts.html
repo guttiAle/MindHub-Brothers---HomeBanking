@@ -89,45 +89,6 @@
             <div class="modal-body" v-else style="display: flex; justify-content: center;">
                 <h4 style="margin-top: 2rem;">You do not have any active loan</h4>
             </div>
-            <!-- Button trigger modal -->
-            <!-- <div class="center">
-                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" style="font-size: 1.5rem;">
-                    See your loans
-                </button>
-            </div> -->
-    
-            <!-- Modal -->
-            <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content" style="background: linear-gradient(135deg, hsl(230, 40%, 12%), hsl(230, 20%, 7%));">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Loans:</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body" v-if="data.loans.length > 0">
-                            <table style="width: 100%;">
-                                <thead>
-                                    <tr style="height: 3rem; border-bottom: 2px solid #C0C0C0;">
-                                        <th scope="col" style="width: 33%; text-align: center;">TYPE</th>
-                                        <th scope="col" style="width: 33%; text-align: center;">AMOUNT</th>
-                                        <th scope="col" style="width: 33%; text-align: center;">PAYMENTS</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="j of data.loans" style="height: 3rem;">
-                                        <td style="text-align: center;">{{j.name}}</td>
-                                        <td style="text-align: center;">$ {{j.amount.toLocaleString('es-MX')}}</td>
-                                        <td style="text-align: center;">{{j.payments}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="modal-body" v-else style="display: flex; justify-content: center;">
-                            <h4>You do not have any active loan</h4>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
 

@@ -59,20 +59,22 @@
                             <input type="password" name="" required="" v-model="password">
                             <label>Password</label>
                         </div>
-                        <button type="submit">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            Sign in
-                        </button>
-                        <button>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            Sign up
-                        </button>
+                        <div style="display: flex; align-items: center; justify-content: center;">
+                            <button type="submit">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                Sign in
+                            </button>
+                            <a href="./register.html">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                Sign up
+                            </a>
+                        </div>
                     </form>
                     <p v-if="error" class="error-message" style="color: #C0C0C0;">{{ error }}</p>
                 </div>

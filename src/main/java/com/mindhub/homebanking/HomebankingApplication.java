@@ -25,6 +25,7 @@ public class HomebankingApplication {
 	@Bean
 	public CommandLineRunner initData(ClientRepository repository, AccountRepository account, TransactionRepository transactionRepo, LoanRepository loanRepo, ClientLoanRepository clientLoanRepo, CardRepository cardRepo) {
 		return (args) -> {
+
 //			CLIENTS
 			Client client1 = new Client("Melba", "Morel", "melba@mindhub.com", passwordEncoder.encode("melba123"));
 			Client client2 = new Client("Santiago", "Hermosilla", "carlos@mindhub.com", passwordEncoder.encode("santiago987"));

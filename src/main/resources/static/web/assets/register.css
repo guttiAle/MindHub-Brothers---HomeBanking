@@ -1,57 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
-*{
-    margin: 0;
-    /* border: 1px solid red; */
-}
-
-
-.div-mensaje {
-    display:inline-block;
-    overflow:hidden;
-    white-space:nowrap;
-    color: #12162A;
-    font-size:32px;
-    font-weight: 300;
-    font-family: "Quicksand";
-}
-
-.div-mensaje:first-of-type {
-    animation: showup 15s infinite;
-}
-
-.div-mensaje:last-of-type {
-    width:0px;
-    animation: reveal 15s infinite;
-}
-
-.div-mensaje:last-of-type span {
-    margin-left:-355px;
-    animation: slidein 15s infinite;
-}
-@keyframes showup {
-    0% {opacity:0;}
-    20% {opacity:1;}
-    80% {opacity:1;}
-    100% {opacity:0;}
-}
-
-@keyframes slidein {
-    0% { margin-left:-800px; }
-    20% { margin-left:-800px; }
-    35% { margin-left:0px; }
-    100% { margin-left:0px; }
-}
-
-@keyframes reveal {
-    0% {opacity:0;width:0px;}
-    20% {opacity:1;width:0px;}
-    30% {width:160px;}
-    80% {opacity:1;}
-    100% {opacity:0;width:155px;}
-}
-
-
-/* LOG IN  */
+/* REGISTER  */
 .login-box {
     width: 400px;
     padding: 40px;
@@ -148,11 +96,23 @@ button{
     animation: btn-anim2 1s linear infinite;
     animation-delay: .25s
 }
+/* 
+.login-box a{
+    text-decoration: none;
+    color: #C0C0C0;
+}
+
+.login-box a:hover{
+    color: #12162A;
+} */
 
 
-
-
-
+.login-box a{
+    text-decoration: none;
+    border: 0;
+    background-color: transparent;
+    color: #C0C0C0 !important;
+}
 
 .login-box form a {
     display: inline-block;
@@ -168,7 +128,7 @@ button{
 
 .login-box a:hover {
     background: #C0C0C0;
-    color: #12162A;
+    color: #12162A !important;
     border-radius: 5px;
     box-shadow: 0 0 5px #C0C0C0,
                 0 0 25px #C0C0C0,
