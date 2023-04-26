@@ -100,14 +100,14 @@ public class HomebankingApplication {
 			clientLoanRepo.save(clientLoan4);
 
 //			CARDS
-			Card card1 = new Card("Melba Morel", CardType.DEBIT, CardColor.GOLD, Long.parseLong("1234567891123456"), 378, LocalDateTime.now(), LocalDateTime.now().plusYears(5));
+			Card card1 = new Card("Melba Morel", CardType.DEBIT, CardColor.GOLD, "1234-5678-9112-3456", 378, LocalDateTime.now(), LocalDateTime.now().plusYears(5));
 			client1.addCardHolder(card1);
 			cardRepo.save(card1);
-			Card card2 = new Card("Melba Morel", CardType.CREDIT, CardColor.TITANIUM, Long.parseLong("1123456123456789"), 951, LocalDateTime.now(), LocalDateTime.now().plusYears(5));
+			Card card2 = new Card("Melba Morel", CardType.CREDIT, CardColor.TITANIUM,"1123-4561-2345-6789", 951, LocalDateTime.now(), LocalDateTime.now().plusYears(5));
 			client1.addCardHolder(card2);
 			cardRepo.save(card2);
 
-			Card card3 = new Card("Santiago Hermosilla", CardType.CREDIT, CardColor.SILVER, Long.parseLong("6789112123456534"), 753, LocalDateTime.now(), LocalDateTime.now().plusYears(5));
+			Card card3 = new Card("Santiago Hermosilla", CardType.CREDIT, CardColor.SILVER, "6789-1121-2345-6534", 753, LocalDateTime.now(), LocalDateTime.now().plusYears(5));
 			client2.addCardHolder(card3);
 			cardRepo.save(card3);
 		};

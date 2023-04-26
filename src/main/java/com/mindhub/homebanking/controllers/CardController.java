@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @RestController
@@ -26,45 +28,49 @@ public class CardController {
 
     @RequestMapping(path = "/api/clients/current/cards", method = RequestMethod.POST)
     public ResponseEntity<Object> createCard(Authentication authentication, @RequestParam String color, @RequestParam String type) {
-
-
         Client clientOwner = repository.findByEmail(authentication.getName());
         int contDebit = 0;
         int contCredit = 0;
-        String randomNum;
-        String randomCVV = String.format("%03d", (int) (Math.random() * 1000));
-//        do {
-//            randomNum = String.format("%016d", (long) (Math.random() * 1000000000000000L));
-//        } while (cardRepository.findByNumber(randomNum) != null);
+        List<String> colorCREDIT = new ArrayList<>();
+        List<String> colorDEBIT = new ArrayList<>();
 
-        randomNum = String.format("%016d", (long) (Math.random() * 1000000000000000L));
+        String randomCVV = String.format("%03d", (int) (Math.random() * 1000));
+
+        if (color.isEmpty() || type.isEmpty()) {return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);}
+
+        String randomNum = "";
+
+        do {
+            for (int i = 0; i < 4; i++) {
+                String fourDigits = String.format("%04d", (int) (Math.random() * 10000));
+                randomNum += fourDigits;
+                if (i < 3) {
+                    randomNum += "-";
+                }
+            }
+        } while (cardRepository.findByNumber(randomNum) != null);
+
         for (Card i : clientOwner.getCards()){
             if (i.getType().equals(CardType.CREDIT)){
                 contCredit++;
+                colorCREDIT.add(i.getColor().name());
             } else if (i.getType().equals(CardType.DEBIT)){
                 contDebit++;
-            }
-        }
-        if(type.equals("CREDIT")){
-            if (contCredit < 3){
-                Card newCard = new Card(clientOwner.getFirstName() + clientOwner.getLastName(), CardType.valueOf(type) , CardColor.valueOf(color), Long.parseLong(randomNum), Integer.parseInt(randomCVV), LocalDateTime.now(), LocalDateTime.now().plusYears(5));
-                clientOwner.addCardHolder(newCard);
-                cardRepository.save(newCard);
-            } else {
-                return new ResponseEntity<>("Already have 3 cards", HttpStatus.FORBIDDEN);
+                colorDEBIT.add(i.getColor().name());
             }
         }
 
-        if(type.equals("DEBIT")) {
-            if (contDebit < 3) {
-                Card newCard = new Card(clientOwner.getFirstName() + clientOwner.getLastName(), CardType.valueOf(type), CardColor.valueOf(color), Long.parseLong(randomNum), Integer.parseInt(randomCVV), LocalDateTime.now(), LocalDateTime.now().plusYears(5));
-                clientOwner.addCardHolder(newCard);
-                cardRepository.save(newCard);
-            } else {
-                return new ResponseEntity<>("Already have 3 cards", HttpStatus.FORBIDDEN);
-            }
+        if(type.equals("CREDIT") && (contCredit < 3) && !colorCREDIT.contains(color)){
+            Card newCard = new Card(clientOwner.getFirstName() + clientOwner.getLastName(), CardType.valueOf(type) , CardColor.valueOf(color), randomNum, Integer.parseInt(randomCVV), LocalDateTime.now(), LocalDateTime.now().plusYears(5));
+            clientOwner.addCardHolder(newCard);
+            cardRepository.save(newCard);
+        } else if(type.equals("DEBIT") && (contDebit < 3) && !colorDEBIT.contains(color)) {
+            Card newCard = new Card(clientOwner.getFirstName() + clientOwner.getLastName(), CardType.valueOf(type), CardColor.valueOf(color), randomNum, Integer.parseInt(randomCVV), LocalDateTime.now(), LocalDateTime.now().plusYears(5));
+            clientOwner.addCardHolder(newCard);
+            cardRepository.save(newCard);
+        } else {
+            return new ResponseEntity<>("Already have 3 cards", HttpStatus.FORBIDDEN);
         }
-
-            return new ResponseEntity<>( HttpStatus.CREATED);
+        return new ResponseEntity<>( HttpStatus.CREATED);
     }
 }

@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class CardDTO {
     private long id;
-    private long number;
+    private String number;
     private int cvv;
     private LocalDateTime fromDate;
     private LocalDateTime thruDate;
@@ -33,7 +33,7 @@ public class CardDTO {
 
     public long getId() {return id;}
 
-    public long getNumber() {return number;}
+    public String getNumber() {return number;}
 
     public int getCvv() {return cvv;}
 

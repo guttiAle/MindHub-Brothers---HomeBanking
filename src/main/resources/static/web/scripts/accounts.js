@@ -25,7 +25,7 @@ createApp({
             })},
         create(){
             axios.post('/api/clients/current/accounts')
-            .then(response => console.log('account created'))
+            .then(response => window.location.replace('./accounts.html'))
             .catch(error => {console.error(error)})
         }
     }
