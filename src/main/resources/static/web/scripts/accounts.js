@@ -22,6 +22,11 @@ createApp({
             })
             .catch(error => {
                 console.error(error);
-            })}
+            })},
+        create(){
+            axios.post('/api/clients/current/accounts')
+            .then(response => console.log('account created'))
+            .catch(error => {console.error(error)})
+        }
     }
 }).mount("#app")

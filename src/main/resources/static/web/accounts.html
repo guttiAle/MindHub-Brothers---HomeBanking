@@ -49,8 +49,11 @@
     <!-- BODY BOX -->
     <div class="bodyBox" style="width: 100%; display: flex; flex-wrap: wrap; border-top: 1px solid #C0C0C0;">
         <div class="bodyCards col-12 col-sm-8" style="border-right: 1px solid #C0C0C0; margin-top: 2rem;">
-            <div style="width: 100%;">
+            <div style="width: 50%;">
                 <h2 style="margin-left: 2rem; margin-left: 2rem;">Your accounts:</h2>
+            </div>
+            <div style="width: 50%; display: flex; justify-content: end;">
+                <button class="buttonCreate" style="margin-right: 3rem; background-color: transparent; border: none; color: #C0C0C0; font-size: 32px;" @click="create">&nbsp;&nbsp;+ Create&nbsp;&nbsp;</button>
             </div>
             <div class="container" style="padding: 0; margin: 0;">
                 <div class="card" v-for="i of data.accounts" >

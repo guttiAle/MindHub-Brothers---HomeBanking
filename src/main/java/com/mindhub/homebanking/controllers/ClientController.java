@@ -36,11 +36,8 @@ public class ClientController {
 
     @RequestMapping("/api/clients/{id}")
     public ClientDTO getClient(@PathVariable Long id){
-//        Optional<Client> optionalClient = repository.findById(id);
         return new ClientDTO(repository.findById(id).orElse(null));
     }
-
-
 
     @RequestMapping(path = "/api/clients", method = RequestMethod.POST)
     public ResponseEntity<Object> register(
@@ -52,13 +49,11 @@ public class ClientController {
         if (repository.findByEmail(email) != null) {
             return new ResponseEntity<>("Name already in use", HttpStatus.FORBIDDEN);
         }
-//        repository.save(new Client(firstName, lastName, email, passwordEncoder.encode(password)));
-//        accountRepository.save(new Account("VIN" + (Math.random() * 1000), LocalDateTime.now(), 0));
-//        return new ResponseEntity<>(HttpStatus.CREATED);
+
         String accountNumber;
         do {
             int randomNumber = (int) (Math.random() * 100000000);
-            accountNumber = "VIN" + String.format("%08d", randomNumber);
+            accountNumber = "VIN-" + String.format("%08d", randomNumber);
         } while (accountRepository.findByNumber(accountNumber) != null);
 
         Client newClient = new Client(firstName, lastName, email, passwordEncoder.encode(password));

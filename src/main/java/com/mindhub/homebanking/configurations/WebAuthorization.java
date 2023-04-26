@@ -28,12 +28,6 @@ public class WebAuthorization {
                 .antMatchers("/web/scripts/**").permitAll()
                 .antMatchers("/api/login").permitAll()
                 .antMatchers("/api/logout").permitAll()
-//                .antMatchers("/web/manager/**").hasAuthority("ADMIN")
-//                .antMatchers("/h2-console/**").hasAuthority("ADMIN")
-//                .antMatchers("/rest/**").hasAuthority("ADMIN")
-//                .antMatchers("/web/accounts.html/**").hasAuthority("CLIENT")
-//                .antMatchers("/web/account.html/**").hasAuthority("CLIENT")
-//                .antMatchers("/web/cards.html/**").hasAuthority("CLIENT");
 
 //                ADMIN
                 .antMatchers(HttpMethod.PATCH, "/api/clients").hasAuthority("ADMIN")
@@ -46,7 +40,9 @@ public class WebAuthorization {
                 .antMatchers("/api/clients/current").hasAuthority("CLIENT")
                 .antMatchers("/web/accounts.html").hasAuthority("CLIENT")
                 .antMatchers("/web/cards.html").hasAuthority("CLIENT")
-                .antMatchers("/web/account.html").hasAuthority("CLIENT");
+                .antMatchers("/web/account.html").hasAuthority("CLIENT")
+                .antMatchers("/api/clients/current/accounts").hasAuthority("CLIENT")
+                .antMatchers("/api/clients/current/cards").hasAuthority("CLIENT");
 
         http.formLogin()
                 .usernameParameter("email")

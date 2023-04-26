@@ -68,6 +68,13 @@ public class Client {
 
     public String getPassword() {return password;}
 
+//    public String gettypeCard(){
+//        for (int i = 0; this.cards > i; i++){
+//
+//        }
+//    }
+
+
     //    SETTERS
 
     public void setFirstName(String firstName) {this.firstName = firstName;}
