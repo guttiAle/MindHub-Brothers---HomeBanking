@@ -61,11 +61,11 @@ public class CardController {
         }
 
         if(type.equals("CREDIT") && (contCredit < 3) && !colorCREDIT.contains(color)){
-            Card newCard = new Card(clientOwner.getFirstName() + clientOwner.getLastName(), CardType.valueOf(type) , CardColor.valueOf(color), randomNum, Integer.parseInt(randomCVV), LocalDateTime.now(), LocalDateTime.now().plusYears(5));
+            Card newCard = new Card(clientOwner.getFirstName() + " " + clientOwner.getLastName(), CardType.valueOf(type) , CardColor.valueOf(color), randomNum, Integer.parseInt(randomCVV), LocalDateTime.now(), LocalDateTime.now().plusYears(5));
             clientOwner.addCardHolder(newCard);
             cardRepository.save(newCard);
         } else if(type.equals("DEBIT") && (contDebit < 3) && !colorDEBIT.contains(color)) {
-            Card newCard = new Card(clientOwner.getFirstName() + clientOwner.getLastName(), CardType.valueOf(type), CardColor.valueOf(color), randomNum, Integer.parseInt(randomCVV), LocalDateTime.now(), LocalDateTime.now().plusYears(5));
+            Card newCard = new Card(clientOwner.getFirstName() + " " + clientOwner.getLastName(), CardType.valueOf(type), CardColor.valueOf(color), randomNum, Integer.parseInt(randomCVV), LocalDateTime.now(), LocalDateTime.now().plusYears(5));
             clientOwner.addCardHolder(newCard);
             cardRepository.save(newCard);
         } else {

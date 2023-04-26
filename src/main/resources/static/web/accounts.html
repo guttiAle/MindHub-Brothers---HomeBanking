@@ -52,8 +52,11 @@
             <div style="width: 50%;">
                 <h2 style="margin-left: 2rem; margin-left: 2rem;">Your accounts:</h2>
             </div>
-            <div style="width: 50%; display: flex; justify-content: end;">
-                <button class="buttonCreate" style="margin-right: 3rem; background-color: transparent; border: none; color: #C0C0C0; font-size: 32px;" @click="create">&nbsp;&nbsp;+ Create&nbsp;&nbsp;</button>
+            <div style="width: 50%; display: flex; justify-content: end;" v-if="3 > data.accounts.length">
+                <button class="buttonCreate" style="margin-right: 3rem; background-color: transparent; border: none; color: #C0C0C0; font-size: 20px;" @click="create">&nbsp;&nbsp;+ Create new account&nbsp;&nbsp;</button>
+            </div>
+            <div style="width: 50%; display: flex; justify-content: end;" v-else>
+                
             </div>
             <div class="container" style="padding: 0; margin: 0;">
                 <div class="card" v-for="i of data.accounts" >
