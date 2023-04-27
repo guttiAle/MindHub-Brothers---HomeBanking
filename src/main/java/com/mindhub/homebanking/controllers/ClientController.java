@@ -43,8 +43,17 @@ public class ClientController {
     public ResponseEntity<Object> register(
             @RequestParam String firstName, @RequestParam String lastName,
             @RequestParam String email, @RequestParam String password) {
-        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
+        if (firstName.isBlank()) {
+            return new ResponseEntity<>("Missing first name", HttpStatus.FORBIDDEN);
+        }
+        if (lastName.isBlank()) {
+            return new ResponseEntity<>("Missing last name", HttpStatus.FORBIDDEN);
+        }
+        if (email.isBlank()) {
+            return new ResponseEntity<>("Missing e-mail", HttpStatus.FORBIDDEN);
+        }
+        if (password.isBlank()) {
+            return new ResponseEntity<>("Missing password", HttpStatus.FORBIDDEN);
         }
         if (repository.findByEmail(email) != null) {
             return new ResponseEntity<>("Name already in use", HttpStatus.FORBIDDEN);

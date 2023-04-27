@@ -36,7 +36,7 @@ public class CardController {
 
         String randomCVV = String.format("%03d", (int) (Math.random() * 1000));
 
-        if (color.isEmpty() || type.isEmpty()) {return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);}
+        if (color.isBlank() || type.isBlank()) {return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);}
 
         String randomNum = "";
 
