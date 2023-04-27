@@ -18,7 +18,7 @@ createApp({
             .catch(error => {
                 console.error(error);
             })},
-        enviarRespuestas: function() {
+        enviarRespuestas() {
             axios.post('/api/clients/current/cards',`color=${this.colorTarjeta}&type=${this.tipoTarjeta}`).then(response => console.log('tarjeta creada'))
             .then(response => {
                 window.location.replace('./cards.html');

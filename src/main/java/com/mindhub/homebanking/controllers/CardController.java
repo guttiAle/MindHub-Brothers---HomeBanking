@@ -34,8 +34,7 @@ public class CardController {
         List<String> colorCREDIT = new ArrayList<>();
         List<String> colorDEBIT = new ArrayList<>();
 
-        String randomCVV = String.format("%03d", (int) (Math.random() * 1000));
-
+        String randomCVV = String.format("%03d", (int) (Math.random() * 899 + 100));
         if (color.isBlank() || type.isBlank()) {return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);}
 
         String randomNum = "";
