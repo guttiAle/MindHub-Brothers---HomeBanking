@@ -47,10 +47,9 @@
         </div>
     </div>
     <div class="divTabla">
-        <table id="accountTable" v-if="data.length > 0">  
+        <table id="accountTable" v-if="account.transactions.length > 0">  
             <thead>
                 <tr >
-                    <!-- <th scope="col">ID</th> -->
                     <th scope="col">TYPE</th>
                     <th scope="col">DATE</th>
                     <th scope="col">DESCRIPTION</th>
@@ -58,11 +57,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="j of data">
-                    <!-- <td >{{j.id}}</td> -->
+                <tr v-for="j of account.transactions">
                     <td >{{j.type}}</td>
                     <td>{{j.date.slice(0, 10)}} at {{j.date.slice(11, 16)}}hs.</td>
-                    <!-- <td>Transaction made on {{j.date.slice(0, 10)}} at {{j.date.slice(11, 16)}}</td> -->
                     <td >{{j.description}}</td>
                     <td :class="j.type">$ {{j.amount.toLocaleString('es-MX')}}</td>
                 </tr>

@@ -29,11 +29,6 @@ public class WebAuthorization {
                 .antMatchers("/api/login").permitAll()
                 .antMatchers("/api/logout").permitAll()
 
-//                ADMIN
-                .antMatchers(HttpMethod.PATCH, "/api/clients").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.GET, "/api/clients").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.PATCH, "/api/accounts").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.GET, "/api/accounts").hasAuthority("ADMIN")
 
 //                CLIENT
                 .antMatchers(HttpMethod.POST, "/api/clients/current").hasAuthority("CLIENT")
@@ -41,8 +36,22 @@ public class WebAuthorization {
                 .antMatchers("/web/accounts.html").hasAuthority("CLIENT")
                 .antMatchers("/web/cards.html").hasAuthority("CLIENT")
                 .antMatchers("/web/account.html").hasAuthority("CLIENT")
-                .antMatchers("/api/clients/current/accounts").hasAuthority("CLIENT")
-                .antMatchers("/api/clients/current/cards").hasAuthority("CLIENT");
+                .antMatchers("/api/clients/current/**").hasAuthority("CLIENT")
+                .antMatchers("/api/clients/current/cards").hasAuthority("CLIENT")
+                .antMatchers("/web/create-cards.html").hasAuthority("CLIENT")
+
+
+//                ADMIN
+                .antMatchers(HttpMethod.PATCH, "/api/clients").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/clients").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.PATCH, "/api/clients/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/clients/**").hasAuthority("ADMIN")
+
+                .antMatchers(HttpMethod.PATCH, "/api/accounts").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/accounts").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.PATCH, "/api/accounts/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/accounts/**").hasAuthority("ADMIN")
+        ;
 
         http.formLogin()
                 .usernameParameter("email")
