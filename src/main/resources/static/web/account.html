@@ -46,7 +46,7 @@
             </div>
         </div>
     </div>
-    <div class="divTabla">
+    <div class="table-responsive">
         <table id="accountTable" v-if="account.transactions.length > 0">  
             <thead>
                 <tr >
@@ -65,7 +65,7 @@
                 </tr>
             </tbody>
         </table>
-        <h2 v-else style="height: 40vh; display: flex; align-items: center;"> There are no transactions on this account</h2>
+        <h2 v-else style="height: 40vh; display: flex; align-items: center; justify-content: center;"> There are no transactions on this account</h2>
     </div>
     <div style="width: 100%; display: flex; align-items: center; justify-content: center;">
         <a href="./accounts.html" style="color: #C0C0C0; text-decoration: none;" class="goBackButton">GO TO ACCOUNTS</a>

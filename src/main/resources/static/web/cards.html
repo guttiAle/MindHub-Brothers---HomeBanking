@@ -53,7 +53,7 @@
     <div style="width: 70%; margin: auto; display: flex; justify-content: end;" v-else="">
         
     </div>
-    <div class="cardsBox" style="width: 70%; min-height: 15rem; margin: auto; display: flex; justify-content: space-around; align-items: center; background-color: #C0C0C0; border-radius: 50px; flex-wrap: wrap; margin-top: 1rem; padding: 2rem; gap: 2rem;">
+    <div class="cardsBox col-12 col-sm-8" style="min-height: 15rem; margin: auto; display: flex; justify-content: space-around; align-items: center; background-color: #C0C0C0; border-radius: 50px; flex-wrap: wrap; margin-top: 1rem; padding: 2rem; gap: 2rem;">
         <h2 style="color: hsl(230, 40%, 12%); width: 100%; text-align: center; margin: 0; font-size: 1.4rem;">CREDIT CARDS:</h2>
         <div v-if="creditCards.length> 0" v-for="i of creditCards" class="flip-card" >
             <div class="flip-card-inner">
@@ -126,7 +126,7 @@
         </div>
         <h2 v-else style="display: flex; align-items: center; color: hsl(230, 40%, 12%);">You don't have any CREDIT card</h2>
     </div>
-    <div class="cardsBox" style="width: 70%; min-height: 15rem; margin: auto; display: flex; justify-content: space-around; align-items: center; background-color: #C0C0C0; border-radius: 50px; flex-wrap: wrap; margin-top: 3rem; padding: 2rem; gap: 2rem;">
+    <div class="cardsBox col-12 col-sm-8" style="min-height: 15rem; margin: auto; display: flex; justify-content: space-around; align-items: center; background-color: #C0C0C0; border-radius: 50px; flex-wrap: wrap; margin-top: 3rem; padding: 2rem; gap: 2rem;">
         <h2 style="color: hsl(230, 40%, 12%); width: 100%; text-align: center; margin: 0; font-size: 1.4rem;">DEBIT CARDS:</h2>
         <div v-if="debitCards.length> 0" v-for="i of debitCards" class="flip-card" >
             <div class="flip-card-inner">
