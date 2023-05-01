@@ -13,7 +13,7 @@ createApp({
             axios
                 .post('/api/logout')
                 .then(response => {
-                window.location.replace('./index.html');
+                window.location.replace('./index.html')
             })
             .catch(error => {
                 console.error(error);
@@ -22,6 +22,13 @@ createApp({
             axios.post('/api/clients/current/cards',`color=${this.colorTarjeta}&type=${this.tipoTarjeta}`).then(response => console.log('tarjeta creada'))
             .then(response => {
                 window.location.replace('./cards.html');
+            })
+            .catch(error => {
+                if (error.response.status === 403) {
+                    alert('You already have that card')
+                } else {
+                    console.log(error)
+                }
             })
     }
 }}).mount("#app")

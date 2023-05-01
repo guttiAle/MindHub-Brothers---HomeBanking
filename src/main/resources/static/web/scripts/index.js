@@ -8,12 +8,7 @@ createApp({
     },
     methods: {
         login() {
-            axios
-                .post('/api/login', `email=${this.email}&password=${this.password}`, {
-                headers: {
-                'content-type': 'application/x-www-form-urlencoded'
-            }
-            })
+            axios.post('/api/login', `email=${this.email}&password=${this.password}`, {headers: {'content-type': 'application/x-www-form-urlencoded'}})
             .then(response => {
                 if (this.email=="admin@admin.com"){
                     window.location.replace('/web/manager/manager.html');
