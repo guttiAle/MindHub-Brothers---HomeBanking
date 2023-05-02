@@ -210,10 +210,3 @@ form{
 .goBackButton:hover{
     transform: scale(1.1);
 }
-
-/* ALERT */
-/* .alert {
-    padding: 10px;
-    border-radius: 5px;
-    background-color: red;
-} */

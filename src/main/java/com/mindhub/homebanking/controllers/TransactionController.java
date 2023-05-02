@@ -27,7 +27,6 @@ public class TransactionController {
     @Autowired
     private TransactionRepository transactionRepo;
 
-
     /*POST TO MAKE TRANSACTIONS*/
     @Transactional
     @RequestMapping(path = "/api/transactions", method = RequestMethod.POST)
