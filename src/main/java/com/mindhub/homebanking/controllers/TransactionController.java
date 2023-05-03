@@ -57,8 +57,8 @@ public class TransactionController {
             return new ResponseEntity<>("The account does not have enough money", HttpStatus.FORBIDDEN);
         }
 
-        Transaction transaction1 = new Transaction(amount * -1,sourceAccount.getNumber() + " " + description, LocalDateTime.now() , TransactionType.DEBIT);
-        Transaction transaction2 = new Transaction(amount, destinationAccount.getNumber() + " " + description, LocalDateTime.now(), TransactionType.CREDIT);
+        Transaction transaction1 = new Transaction(amount * -1,destinationAccount.getNumber() + " " + description, LocalDateTime.now() , TransactionType.DEBIT);
+        Transaction transaction2 = new Transaction(amount, sourceAccount.getNumber() + " " + description, LocalDateTime.now(), TransactionType.CREDIT);
         sourceAccount.addTransaction(transaction1);
         destinationAccount.addTransaction(transaction2);
         transactionRepo.save(transaction1);

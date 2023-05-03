@@ -14,14 +14,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
 @RestController
 public class ClientController {
     @Autowired
-    private ClientRepository repository;
+    private ClientRepository clientRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -31,12 +30,12 @@ public class ClientController {
 
     @RequestMapping("/api/clients")
     public List<ClientDTO> getClient() {
-        return repository.findAll().stream().map(client -> new ClientDTO(client)).collect(toList());
+        return clientRepository.findAll().stream().map(client -> new ClientDTO(client)).collect(toList());
     }
 
     @RequestMapping("/api/clients/{id}")
     public ClientDTO getClient(@PathVariable Long id){
-        return new ClientDTO(repository.findById(id).orElse(null));
+        return new ClientDTO(clientRepository.findById(id).orElse(null));
     }
 
     @RequestMapping(path = "/api/clients", method = RequestMethod.POST)
@@ -55,19 +54,13 @@ public class ClientController {
         if (password.isBlank()) {
             return new ResponseEntity<>("Missing password", HttpStatus.FORBIDDEN);
         }
-        if (repository.findByEmail(email) != null) {
-            return new ResponseEntity<>("Name already in use", HttpStatus.FORBIDDEN);
+        if (clientRepository.findByEmail(email) != null) {
+            return new ResponseEntity<>("E-Mail already in use", HttpStatus.FORBIDDEN);
         }
 
-        String accountNumber;
-        do {
-            int randomNumber = (int) (Math.random() * 100000000);
-            accountNumber = "VIN-" + String.format("%08d", randomNumber);
-        } while (accountRepository.findByNumber(accountNumber) != null);
-
         Client newClient = new Client(firstName, lastName, email, passwordEncoder.encode(password));
-        Account newAccount = new Account(accountNumber, LocalDateTime.now(),0);
-        repository.save(newClient);
+        Account newAccount = new Account(randomNumber(), LocalDateTime.now(),0);
+        clientRepository.save(newClient);
         newClient.addAccount(newAccount);
         accountRepository.save(newAccount);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -75,7 +68,25 @@ public class ClientController {
 
     @RequestMapping("/api/clients/current")
     public ClientDTO getCurrentClient(Authentication authentication) {
-        return new ClientDTO(repository.findByEmail(authentication.getName()));
+        return new ClientDTO(clientRepository.findByEmail(authentication.getName()));
+    }
+
+    private String randomNumber() {
+        String accountNumber;
+        do {
+            int randomNumber = (int) (Math.random() * 100000000);
+            accountNumber = "VIN-" + String.format("%08d", randomNumber);
+        } while (accountRepository.findByNumber(accountNumber) != null);
+        return accountNumber;
     }
 
 }
+
+
+
+
+//        String accountNumber;
+//        do {
+//            int randomNumber = (int) (Math.random() * 100000000);
+//            accountNumber = "VIN-" + String.format("%08d", randomNumber);
+//        } while (accountRepository.findByNumber(accountNumber) != null);

@@ -40,12 +40,7 @@ public class AccountController {
     public ResponseEntity<Object> createAccount(Authentication authentication) {
         Client clientOwner = repository.findByEmail(authentication.getName());
         if (clientOwner.getAccount().size() < 3) {
-            String accountNumber;
-            do {
-                int randomNumber = (int) (Math.random() * 100000000);
-                accountNumber = "VIN-" + String.format("%08d", randomNumber);
-            } while (repoAccountController.findByNumber(accountNumber) != null);
-            Account newAccount = new Account(accountNumber, LocalDateTime.now(),0);
+            Account newAccount = new Account(randomNumber(), LocalDateTime.now(),0);
             clientOwner.addAccount(newAccount);
             repoAccountController.save(newAccount);
         } else {
@@ -54,5 +49,23 @@ public class AccountController {
         return new ResponseEntity<>( HttpStatus.CREATED);
     }
 
+    private String randomNumber() {
+        String accountNumber;
+        do {
+            int randomNumber = (int) (Math.random() * 100000000);
+            accountNumber = "VIN-" + String.format("%08d", randomNumber);
+        } while (repoAccountController.findByNumber(accountNumber) != null);
+        return accountNumber;
+    }
+
 
 }
+
+
+
+
+//            String accountNumber;
+//            do {
+//                int randomNumber = (int) (Math.random() * 100000000);
+//                accountNumber = "VIN-" + String.format("%08d", randomNumber);
+//            } while (repoAccountController.findByNumber(accountNumber) != null);

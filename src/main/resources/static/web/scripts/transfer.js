@@ -4,7 +4,12 @@ createApp({
         return{
             data: [],
             div1: false,
-            div2: true
+            div2: true,
+            cuentaOrigen: "",
+            cuentaDestino: "",
+            monto: undefined,
+            descripcion: "",
+
         }
     },
     created(){
@@ -37,6 +42,36 @@ createApp({
         mostrarDiv2() {
             this.div2 = true;
             this.div1 = false;
+        },
+        transferir(){
+            Swal.fire({
+                title: 'Sure you want to transfer?',
+                text: "You won't be able to revert this",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, transfer it'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Transferred',
+                        'Succesful transaction',
+                        'success'
+                    )
+                    axios.post('/api/transactions',`amount=${this.monto}&description=${this.descripcion}&sourceNumber=${this.cuentaOrigen}&destinationNumber=${this.cuentaDestino}`)
+                    .catch(error => {
+                        if (error.response.status === 403) {
+                            Swal.fire({
+                                icon: 'error',
+                                text: error.response.data,
+                            })
+                        } else {
+                            console.log(error)
+                        }
+                    })
+                }
+            })
         }
     }
 }).mount("#app")

@@ -25,10 +25,14 @@ createApp({
             })
             .catch(error => {
                 if (error.response.status === 403) {
-                    alert('You already have that card')
+                    Swal.fire({
+                        icon: 'error',
+                        text: error.response.data,
+                    })
                 } else {
                     console.log(error)
                 }
             })
     }
 }}).mount("#app")
+
