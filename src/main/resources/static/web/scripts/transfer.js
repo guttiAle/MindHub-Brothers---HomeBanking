@@ -9,6 +9,7 @@ createApp({
             cuentaDestino: "",
             monto: undefined,
             descripcion: "",
+            availableAmount: undefined,
 
         }
     },
@@ -16,7 +17,7 @@ createApp({
         axios.get('http://localhost:8080/api/clients/current')
         .then(response =>{
             this.data = response.data
-            console.log(response.data)
+            // console.log(response.data)
         })
         .catch(err => console.log(err))
     },
@@ -72,6 +73,13 @@ createApp({
                     })
                 }
             })
+        },
+        available(){
+            for (let i = 0; i < this.data.accounts.length; i++) {
+                if(this.data.accounts[i].number == this.cuentaOrigen){
+                    this.availableAmount = this.data.accounts[i].balance
+                }
+            }
         }
     }
 }).mount("#app")

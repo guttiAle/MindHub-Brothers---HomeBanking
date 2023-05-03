@@ -57,7 +57,7 @@
                         <label style=" width: 100%; height: 3rem; display: flex; align-items: center; background-color: hsl(230, 40%, 12%); color: #C0C0C0; border-radius: 10px; text-align: center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Source account</label>
                         <div style=" min-height: 3rem; display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap;">
                             <label v-for=" i of data.accounts" style="font-size: large;">
-                                <input type="radio" v-model="cuentaOrigen" v-bind:value="i.number" name="cuentaOrigen">
+                                <input type="radio"  v-model="cuentaOrigen" v-bind:value="i.number" name="cuentaOrigen">
                                 {{i.number}}
                             </label>
                         </div>
@@ -94,9 +94,14 @@
                     </div>
                     <div>
                         <label style=" width: 100%; height: 3rem; display: flex; align-items: center; background-color: hsl(230, 40%, 12%); color: #C0C0C0; border-radius: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Amount</label>
-                        <div style=" min-height: 3rem; display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap;">
-                            <label style="font-size: large; width: 50%;">
-                                $ <input type="number" v-model="monto" name="tipoTarjeta">
+                        <div style=" min-height: 5rem; display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap;">
+                            <label style="font-size: large; width: 80%;">
+                                <div class="col-12">
+                                    $ <input type="number" v-model="monto"  @click="available" name="tipoTarjeta" style="width: 10rem;">
+                                </div>
+                                <div class="col-12" >
+                                    Available amount: $ {{availableAmount}}
+                                </div>
                             </label>
                         </div>
                     </div>

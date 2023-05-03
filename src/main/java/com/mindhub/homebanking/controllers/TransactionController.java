@@ -53,7 +53,7 @@ public class TransactionController {
         if (destinationAccount == null){
             return new ResponseEntity<>("Destination account doesn't exist", HttpStatus.FORBIDDEN);
         }
-        if (sourceAccount.getBalance() <= amount){
+        if (sourceAccount.getBalance() < amount){
             return new ResponseEntity<>("The account does not have enough money", HttpStatus.FORBIDDEN);
         }
 
