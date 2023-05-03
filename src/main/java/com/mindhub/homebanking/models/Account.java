@@ -26,46 +26,50 @@ public class Account {
     private Set<Transaction> transactions = new HashSet<>();
     public Account() { }
 
-    public Account(String number, LocalDateTime creationDate, double balance, Client client) {
+    public Account(String number, LocalDateTime creationDate, double balance) {
         this.number = number;
         this.creationDate = creationDate;
         this.balance = balance;
-        this.client = client;
     }
 
-    public String getNumber(){
-        return number;
-    }
-    public void setNumber(String number) {
-        this.number = number;
-    }
-//    @JsonIgnore
-    public Client getClient() {
-        return client;
-    }
-    public void setClient(Client client) {
-        this.client = client;
-    }
-    public LocalDateTime getCreationDate() {
-        return creationDate;
-    }
-    public void setCreationDate(LocalDateTime creationDate) {
-        this.creationDate = creationDate;
-    }
-    public double getBalance(){
-        return balance;
-    }
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
+//    GETTERS
 
     public long getId() {
         return id;
     }
-
+    public String getNumber(){
+        return number;
+    }
+    public Client getClient() {
+        return client;
+    }
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+    public double getBalance(){
+        return balance;
+    }
     public Set<Transaction> getTransactions() {
         return transactions;
     }
+
+//    SETTERS
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+    //    @JsonIgnore
+    public void setClient(Client client) {this.client = client;}
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+//    ADDERS
 
     public void addTransaction(Transaction transaction) {
         transaction.setAccount(this);

@@ -1,0 +1,197 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+*{
+    margin: 0;
+    /* border: 1px solid red; */
+}
+
+
+.div-mensaje {
+    display:inline-block;
+    overflow:hidden;
+    white-space:nowrap;
+    color: #12162A;
+    font-size:32px;
+    font-weight: 300;
+    font-family: "Quicksand";
+}
+
+.div-mensaje:first-of-type {
+    animation: showup 15s infinite;
+}
+
+.div-mensaje:last-of-type {
+    width:0px;
+    animation: reveal 15s infinite;
+}
+
+.div-mensaje:last-of-type span {
+    margin-left:-355px;
+    animation: slidein 15s infinite;
+}
+@keyframes showup {
+    0% {opacity:0;}
+    20% {opacity:1;}
+    80% {opacity:1;}
+    100% {opacity:0;}
+}
+
+@keyframes slidein {
+    0% { margin-left:-800px; }
+    20% { margin-left:-800px; }
+    35% { margin-left:0px; }
+    100% { margin-left:0px; }
+}
+
+@keyframes reveal {
+    0% {opacity:0;width:0px;}
+    20% {opacity:1;width:0px;}
+    30% {width:160px;}
+    80% {opacity:1;}
+    100% {opacity:0;width:155px;}
+}
+
+
+/* LOG IN  */
+.login-box {
+    width: 400px;
+    padding: 40px;
+    background: #12162A;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
+    font-family: "Quicksand";
+}
+button{
+    text-decoration: none;
+    border: 0;
+    background-color: transparent;
+}
+
+.login-box h2 {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #C0C0C0;
+    text-align: center;
+}
+
+.login-box .user-box {
+    position: relative;
+}
+
+.login-box .user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #C0C0C0;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #C0C0C0;
+    outline: none;
+    background: transparent;
+}
+.login-box .user-box label {
+    position: absolute;
+    top:0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #C0C0C0;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #C0C0C0;
+    font-size: 12px;
+}
+
+.login-box form button {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #C0C0C0;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    letter-spacing: 4px
+}
+
+.login-box button:hover {
+    background: #C0C0C0;
+    color: #12162A;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #C0C0C0,
+                0 0 25px #C0C0C0,
+                0 0 50px #C0C0C0,
+                0 0 100px #C0C0C0;
+}
+
+
+.login-box button span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #03e9f4);
+    animation: btn-anim1 1s linear infinite;
+}
+
+.login-box button span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #03e9f4);
+    animation: btn-anim2 1s linear infinite;
+    animation-delay: .25s
+}
+
+
+
+
+
+
+.login-box form a {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #C0C0C0;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    letter-spacing: 4px
+}
+
+.login-box a:hover {
+    background: #C0C0C0;
+    color: #12162A;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #C0C0C0,
+                0 0 25px #C0C0C0,
+                0 0 50px #C0C0C0,
+                0 0 100px #C0C0C0;
+}
+
+
+.login-box a span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #03e9f4);
+    animation: btn-anim1 1s linear infinite;
+}
+
+.login-box a span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #03e9f4);
+    animation: btn-anim2 1s linear infinite;
+    animation-delay: .25s
+}

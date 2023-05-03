@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+*{
+    margin: 0;
+    /* border: 1px solid red; */
+}
+body {
+    min-height: 100vh;
+    font-family: 'Quicksand';
+    color: #C0C0C0;
+    background: linear-gradient(135deg, hsl(230, 40%, 12%), hsl(230, 20%, 7%));
+    min-width: 100%;
+}
+
+#navigationBar{
+    background-color: black;
+}
+
+#navigationBar a{
+    font-family: 'Quicksand';
+    color: #C0C0C0;
+}
+
+form{
+    background-color: rgb(190, 210, 212);
+}
+
+#accountsTable{
+    display: flex;
+    flex-direction: column;
+}
+
+.cajaTitulo{
+    font-weight:300;
+    text-align:center;
+    font-size:32px;
+    height:40px;
+    overflow:hidden;
+    
+}
+
+.div-mensaje {
+    display:inline-block;
+    overflow:hidden;
+    white-space:nowrap;
+}
+
+.div-mensaje:first-of-type {
+    animation: showup 15s infinite;
+}
+
+.div-mensaje:last-of-type {
+    width:0px;
+    animation: reveal 15s infinite;
+}
+
+.div-mensaje:last-of-type span {
+    margin-left:-355px;
+    animation: slidein 15s infinite;
+}
+@keyframes showup {
+    0% {opacity:0;}
+    20% {opacity:1;}
+    80% {opacity:1;}
+    100% {opacity:0;}
+}
+
+@keyframes slidein {
+    0% { margin-left:-800px; }
+    20% { margin-left:-800px; }
+    35% { margin-left:0px; }
+    100% { margin-left:0px; }
+}
+
+@keyframes reveal {
+    0% {opacity:0;width:0px;}
+    20% {opacity:1;width:0px;}
+    30% {width:160px;}
+    80% {opacity:1;}
+    100% {opacity:0;width:155px;}
+}
+
+/* NAVBAR BUTTON */
+#navbarNav button {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    border-radius: 5px;
+    background-color: transparent;
+    font-family: 'Quicksand';
+    -webkit-box-shadow: 0px 6px 24px 0px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 6px 24px 0px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    border: none;
+}
+
+#navbarNav button:after {
+    content: " ";
+    width: 0%;
+    height: 100%;
+    background-color: #C0C0C0;
+    position: absolute;
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+    right: 0;
+}
+
+#navbarNav button:hover::after {
+    right: auto;
+    left: 0;
+    width: 100%;
+}
+
+#navbarNav button span {
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+    padding: 5px 10px;
+    font-size: 1.125em;
+    font-weight: 900;
+    letter-spacing: 0.3em;
+    z-index: 20;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+#navbarNav button:hover a {
+    color: black;
+    -webkit-animation: scaleUp 0.3s ease-in-out;
+            animation: scaleUp 0.3s ease-in-out;
+}
+
+@-webkit-keyframes scaleUp {
+0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+}
+
+50% {
+    -webkit-transform: scale(0.95);
+            transform: scale(0.95);
+}
+
+100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+}
+}
+
+@keyframes scaleUp {
+0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+}
+
+50% {
+    -webkit-transform: scale(0.95);
+            transform: scale(0.95);
+}
+
+100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+}
+}
+
+#activeButton {
+    position: relative !important;
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-pack: center !important;
+        -ms-flex-pack: center !important;
+            justify-content: center !important;
+    -webkit-box-align: center !important;
+        -ms-flex-align: center !important;
+            align-items: center !important;
+    border-radius: 5px !important;
+    background-color: #C0C0C0 !important;
+    font-family: 'Quicksand' !important;
+    -webkit-box-shadow: 0px 6px 24px 0px rgba(0, 0, 0, 0.2) !important;
+            box-shadow: 0px 6px 24px 0px rgba(0, 0, 0, 0.2) !important;
+    overflow: hidden !important;
+    border: none !important;
+}
+
+#activeButton a {
+    color: black !important;
+}
+
+#activeButton:hover{
+    background-color: transparent !important;
+}
+
+/* BOTON CREATE */
+
+.buttonCreate:hover {
+    background-color: hsl(230, 40%, 12%)!important;
+    color:  #C0C0C0 !important;
+    border-radius: 12px;
+}
+
+/* GO BACK BUTTON */
+.goBackButton:hover{
+    transform: scale(1.1);
+}
+
+/* ALERT */
+/* .alert {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: red;
+} */

@@ -5,36 +5,95 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-    <link rel="shortcut icon" href="./assets/images/logoMindHubBrothers.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./assets/images/noTextLogo.png" type="image/x-icon">
     <title>Accounts</title>
     <link rel="stylesheet" href="./assets/style.css">
 </head>
-<body id="app" style="display: flex; flex-direction: column; align-items: center;">
-    <div class="cajaTitulo" style="height: 12rem; width: 100%; display: flex; justify-content: space-around; align-items: center;">
-        <img src="./assets/images/logoMindHubBrothers.png" style="height: 12rem;" alt="">
-        <div style="width: 50%; height: 3rem;">
+<body id="app" style="display: flex; flex-direction: column; align-items: center; width: 100%;" >
+    <nav class="navbar navbar-expand-lg" style="width: 100%;  padding: 0;" id="navigationBar">
+        <div class="container-fluid" style="min-height: 5rem; border-bottom: 1px solid #C0C0C0; ">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse m-0" id="navbarNav" style="width: 5rem !important; gap: 1rem;">
+                        <button>
+                            <span><a href="./index.html" style="text-decoration: none;">HOME</a></span>
+                        </button>
+                        <button id="activeButton">
+                            <span><a href="#" style="text-decoration: none;">ACCOUNT</a></span>
+                        </button>
+                        <button>
+                            <span><a href="./cards.html" style="text-decoration: none;">MY CARDS</a></span>
+                        </button>
+                        <button>
+                            <span><a href="./transfers.html" style="text-decoration: none;">TRANSFERS</a></span>
+                        </button>
+                        <button @click.prevent="logout">
+                            <span><a href="#" style="text-decoration: none;">LOG OUT</a></span>
+                        </button>
+            </div>
+            <img src="./assets/images/noTextLogo.png" style="height: 4rem;" alt="">
+        </div>
+    </nav>
+    <div class="cajaTitulo" style="min-height: 9rem; width: 100%; display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;">
+        <h2 style="font-size: 42px; color:#C0C0C0; font-weight: 700; " class="m-0 col-12 col-sm-6">Welcome {{data.firstName}} {{data.lastName}}</h2>
+        <div style="height: 3rem;" class="col-12 col-sm-6">
             <div class="div-mensaje">
                 MindHub Brothers.
-            </div> 
-            <div class="div-mensaje"> 
+            </div>
+            <div class="div-mensaje">
                 <span> Your bank</span>
             </div>
         </div>
     </div>
-    <h2 style="margin-top: 2rem;" style="font-size:12px; color:#999;">Welcome {{data.firstName}} {{data.lastName}}</h2>
-    <p style="font-size: larger;">Your accounts:</p>
-    <div class="bodyCards">
-        <div class="container">
-            <div class="card" v-for="i of data.accounts">
-                <div class="box">
-                    <div class="content" >
-                        <h2 style="font-size: 2rem;"><img src="./assets/images/logoMindHubBrothers.png" alt="" style="height: 5rem;"></h2>
-                        <h3>{{i.number}}</h3>
-                        <p style="font-weight: 800;">Balance: ${{i.balance.toLocaleString('es-MX')}}</p>
-                        <p>Account created on {{i.creationDate.slice(0, 10)}} <br> at {{i.creationDate.slice(11, 16)}}</p>
-                        <a :href="'./account.html?id=' + i.id">+INFO</a>
+    <!-- BODY BOX -->
+    <div class="bodyBox" style="width: 100%; display: flex; flex-wrap: wrap; border-top: 1px solid #C0C0C0;">
+        <div class="bodyCards col-12 col-sm-8" style="border-right: 1px solid #C0C0C0; margin-top: 2rem;">
+            <div style="width: 50%;">
+                <h2 style="margin-left: 2rem; margin-left: 2rem;">Your accounts:</h2>
+            </div>
+            <div style="width: 50%; display: flex; justify-content: end;" v-if="3 > data.accounts.length">
+                <button class="buttonCreate" style="margin-right: 3rem; background-color: transparent; border: none; color: #C0C0C0; font-size: 20px;" @click="create">&nbsp;&nbsp;+ Create new account&nbsp;&nbsp;</button>
+            </div>
+            <div style="width: 50%; display: flex; justify-content: end;" v-else>
+                
+            </div>
+            <div class="container" style="padding: 0; margin: 0;">
+                <div class="card" v-for="i of data.accounts" >
+                    <div class="box">
+                        <div class="content" >
+                            <h2 style="font-size: 2rem;"><img src="./assets/images/logoMindHubBrothers.png" alt="" style="height: 5rem;"></h2>
+                            <h3>{{i.number}}</h3>
+                            <p style="font-weight: 800;">Balance: ${{i.balance.toLocaleString('es-MX')}}</p>
+                            <p>Account created on: <br> {{i.creationDate.slice(0, 10)}} at {{i.creationDate.slice(11, 16)}}</p>
+                            <a :href="'./account.html?id=' + i.id">+INFO</a>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="divModal col-12 col-sm-4" style="margin-top: 2rem;">
+            <h2 style="margin-left: 2rem;">Your loans:</h2>
+            <div class="modal-body" v-if="data.loans.length > 0" style="margin: 30px;">
+                <table style="width: 100%;">
+                    <thead>
+                        <tr style="height: 3rem; border-bottom: 2px solid #C0C0C0;">
+                            <th scope="col" style="width: 33%; text-align: center;">TYPE</th>
+                            <th scope="col" style="width: 33%; text-align: center;">AMOUNT</th>
+                            <th scope="col" style="width: 33%; text-align: center;">PAYMENTS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="j of data.loans" style="height: 3rem;">
+                            <td style="text-align: center;">{{j.loanName}}</td>
+                            <td style="text-align: center;">$ {{j.amount.toLocaleString('es-MX')}}</td>
+                            <td style="text-align: center;">{{j.payments}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-body" v-else style="display: flex; justify-content: center;">
+                <h4 style="margin-top: 2rem;">You do not have any active loan</h4>
             </div>
         </div>
     </div>

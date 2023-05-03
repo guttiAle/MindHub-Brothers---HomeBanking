@@ -22,15 +22,6 @@ public class TransactionDTO {
         this.type = transaction.getType();
     }
 
-//    SETTERS
-    public void setAmount(double amount) {this.amount = amount;}
-
-    public void setDescription(String description) {this.description = description;}
-
-    public void setDate(LocalDateTime date) {this.date = date;}
-
-    public void setType(TransactionType type) {this.type = type;}
-
 //    GETTERS
 
     public long getId() {return id;}
