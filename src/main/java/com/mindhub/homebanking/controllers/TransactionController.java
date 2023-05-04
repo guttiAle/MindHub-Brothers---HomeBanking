@@ -56,6 +56,9 @@ public class TransactionController {
         if (sourceAccount.getBalance() < amount){
             return new ResponseEntity<>("The account does not have enough money", HttpStatus.FORBIDDEN);
         }
+        if (amount < 0){
+            return new ResponseEntity<>("You cannot transfer negative amounts", HttpStatus.FORBIDDEN);
+        }
 
         Transaction transaction1 = new Transaction(amount * -1,destinationAccount.getNumber() + " " + description, LocalDateTime.now() , TransactionType.DEBIT);
         Transaction transaction2 = new Transaction(amount, sourceAccount.getNumber() + " " + description, LocalDateTime.now(), TransactionType.CREDIT);
