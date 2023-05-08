@@ -3,33 +3,36 @@ createApp({
     data(){
         return{
             data: [],
-            div1: false,
-            div2: true,
-            cuentaOrigen: "",
-            cuentaDestino: "",
+            // div1: false,
+            // div2: true,
+            // cuentaOrigen: "",
+            // cuentaDestino: "",
+            // monto: undefined,
+            // descripcion: "",
+            // availableAmount: undefined,
+            type: "",
+            payments: [],
+            chosenPayment: undefined,
             monto: undefined,
-            descripcion: "",
-            availableAmount: undefined,
-
+            client: [],
+            cuentaDestino: "",
+            chosenLoan: undefined
         }
     },
     created(){
-        axios.get('http://localhost:8080/api/clients/current')
+        axios.get('http://localhost:8080/api/loans')
         .then(response =>{
             this.data = response.data
         })
         .catch(err => console.log(err))
+        axios.get('http://localhost:8080/api/clients/current')
+        .then(response =>{
+            this.client = response.data.accounts
+            console.log(response.data.accounts)
+        })
     },
     methods: {
         logout() {
-            // axios
-            //     .post('/api/logout')
-            //     .then(response => {
-            //     window.location.replace('./index.html');
-            // })
-            // .catch(error => {
-            //     console.error(error);
-            // })}
             Swal.fire({
                 title: 'Sure you want to log out?',
                 icon: 'warning',
@@ -54,18 +57,14 @@ createApp({
                     })
                 }
             })},
-        create(){
-            axios.post('/api/clients/current/accounts')
-            .then(response => window.location.replace('./accounts.html'))
-            .catch(error => {console.error(error)})
-        },
-        mostrarDiv1() {
-            this.div1 = true;
-            this.div2 = false;
-        },
-        mostrarDiv2() {
-            this.div2 = true;
-            this.div1 = false;
+        availablePayments(){
+            for (let i = 0; i <this.data.length; i++) {
+                if (this.data[i].name === this.type) {
+                    this.payments = this.data[i]
+                    // this.chosenLoan = this.data
+                    console.log(this.data[i])
+                }
+            }
         },
         transferir(){
             Swal.fire({
@@ -83,7 +82,10 @@ createApp({
                         'Succesful transaction',
                         'success'
                     )
-                    axios.post('/api/transactions',`amount=${this.monto}&description=${this.descripcion}&sourceNumber=${this.cuentaOrigen}&destinationNumber=${this.cuentaDestino}`)
+                    axios.post('/api/loans',{ id: this.payments.id, amount: this.monto, payments: this.chosenPayment, destinationAccount: this.cuentaDestino})
+                    .then(response => {
+                        window.location.replace('./accounts.html');
+                    })
                     .catch(error => {
                         if (error.response.status === 403) {
                             Swal.fire({
@@ -97,12 +99,12 @@ createApp({
                 }
             })
         },
-        available(){
-            for (let i = 0; i < this.data.accounts.length; i++) {
-                if(this.data.accounts[i].number == this.cuentaOrigen){
-                    this.availableAmount = this.data.accounts[i].balance
-                }
-            }
-        }
+        // available(){
+        //     for (let i = 0; i < this.data.accounts.length; i++) {
+        //         if(this.data.accounts[i].number == this.cuentaOrigen){
+        //             this.availableAmount = this.data.accounts[i].balance
+        //         }
+        //     }
+        // }
     }
 }).mount("#app")
