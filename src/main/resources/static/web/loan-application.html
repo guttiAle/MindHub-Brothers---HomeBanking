@@ -48,56 +48,64 @@
             </div>
         </div>
     </div>
-    <div style=" min-height: 60vh; border: 1px solid red; display: flex; align-items: center; justify-content: center;" class="col-12 col-sm-6">
-        <form style=" background-color: #C0C0C0; color: hsl(230, 40%, 12%); padding: 1.5rem; border-radius: 20px; font-size: 1.3rem;" class="col-12 col-sm-8">
-            <div>
-                <label style=" width: 100%; height: 3rem; display: flex; align-items: center; background-color: hsl(230, 40%, 12%); color: #C0C0C0; border-radius: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Loan type</label>
-                <div style="width: 100%; min-height: 3rem; display: flex; justify-content: space-around; flex-wrap: wrap;">
-                    <div style="min-height: 3rem; display: flex; align-items: center;  font-size: 1rem;" v-for="i of data">
-                        <label >
-                            <input type="radio" v-model="type" v-bind:value="i.name" name="type">
-                            {{i.name}}
+    <div style="display: flex; flex-wrap: wrap;  margin-bottom: 3rem;">
+        <div style=" min-height: 60vh; display: flex; align-items: center; justify-content: center;" class="col-12 col-sm-6">
+            <form style=" background-color: #C0C0C0; color: hsl(230, 40%, 12%); padding: 1.5rem; border-radius: 20px; font-size: 1.3rem;" class="col-12 col-sm-8">
+                <div>
+                    <label style=" width: 100%; height: 3rem; display: flex; align-items: center; background-color: hsl(230, 40%, 12%); color: #C0C0C0; border-radius: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Loan type</label>
+                    <div style="width: 100%; min-height: 3rem; display: flex; justify-content: space-around; flex-wrap: wrap;">
+                        <div style="min-height: 3rem; display: flex; align-items: center;  font-size: 1rem;" v-for="i of data">
+                            <label >
+                                <input type="radio" v-model="type" v-bind:value="i.name" name="type">
+                                {{i.name}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label style=" width: 100%; height: 3rem; display: flex; align-items: center; background-color: hsl(230, 40%, 12%); color: #C0C0C0; border-radius: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Choose a payment</label>
+                    <div style=" min-height: 3rem; display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap;">
+                        <label style="font-size: medium; width: 80%; align-items: center; display: flex; justify-content: center;" v-on:click="availablePayments">
+                            <select name="payments" v-model="chosenPayment">
+                                <option value="others">--Choose a payment--</option>
+                                <option v-for="j of payments.payments" :value="j">{{j}}</option>
+                            </select>
                         </label>
                     </div>
                 </div>
-            </div>
-            <div>
-                <label style=" width: 100%; height: 3rem; display: flex; align-items: center; background-color: hsl(230, 40%, 12%); color: #C0C0C0; border-radius: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Choose a payment</label>
-                <div style=" min-height: 3rem; display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap;">
-                    <label style="font-size: medium; width: 80%; align-items: center; display: flex; justify-content: center;" v-on:click="availablePayments">
-                        <select name="payments" v-model="chosenPayment">
-                            <option value="others">--Choose a payment--</option>
-                            <option v-for="j of payments.payments" :value="j">{{j}}</option>
-                        </select>
-                    </label>
+                <div>
+                    <label style=" width: 100%; height: 3rem; display: flex; align-items: center; background-color: hsl(230, 40%, 12%); color: #C0C0C0; border-radius: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Amount</label>
+                    <div style=" min-height: 5rem; display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap;">
+                        <label style="font-size: large; width: 80%;">
+                            <div class="col-12" style=" display: flex; justify-content: center;">
+                                $ <input type="number" v-model="monto"  name="tipoTarjeta" style="width: 10rem; margin-left: 0.3rem;">
+                            </div>
+                            <div class="col-12"  style=" display: flex; justify-content: center;">
+                                Available amount: $ {{payments.maxAmount}}
+                            </div>
+                        </label>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <label style=" width: 100%; height: 3rem; display: flex; align-items: center; background-color: hsl(230, 40%, 12%); color: #C0C0C0; border-radius: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Amount</label>
-                <div style=" min-height: 5rem; display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap;">
-                    <label style="font-size: large; width: 80%;">
-                        <div class="col-12" style=" display: flex; justify-content: center;">
-                            $ <input type="number" v-model="monto"  name="tipoTarjeta" style="width: 10rem; margin-left: 0.3rem;">
-                        </div>
-                        <div class="col-12"  style=" display: flex; justify-content: center;">
-                            Available amount: $ {{payments.maxAmount}}
-                        </div>
-                    </label>
+                <div>
+                    <label style=" width: 100%; height: 3rem; display: flex; align-items: center; background-color: hsl(230, 40%, 12%); color: #C0C0C0; border-radius: 10px; text-align: center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Destination account</label>
+                    <div style=" min-height: 3rem; display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap;">
+                        <label v-for=" i of client" style="font-size: large;">
+                            <input type="radio"  v-model="cuentaDestino" v-bind:value="i.number" name="cuentaDestino">
+                            {{i.number}}
+                        </label>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <label style=" width: 100%; height: 3rem; display: flex; align-items: center; background-color: hsl(230, 40%, 12%); color: #C0C0C0; border-radius: 10px; text-align: center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Destination account</label>
-                <div style=" min-height: 3rem; display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap;">
-                    <label v-for=" i of client" style="font-size: large;">
-                        <input type="radio"  v-model="cuentaDestino" v-bind:value="i.number" name="cuentaDestino">
-                        {{i.number}}
-                    </label>
+                <div style="width: 100%; display: flex; justify-content: end;">
+                    <button class="buttonCreate" type="button" @click="transferir" style="background-color: transparent; border: none; color: hsl(230, 40%, 12%); font-size: 20px; margin-top: 1rem;">+ APPLY FOR LOAN</button>
                 </div>
-            </div>
-            <div style="width: 100%; display: flex; justify-content: end;">
-                <button class="buttonCreate" type="button" @click="transferir" style="background-color: transparent; border: none; color: hsl(230, 40%, 12%); font-size: 20px; margin-top: 1rem;">+ APPLY FOR LOAN</button>
-            </div>
-        </form>
+            </form>
+        </div>
+        <div class="col-12 col-sm-6" style=" min-height: 60vh;display: flex; justify-content: center; align-items: center;">
+            <img src="./assets/images/loanApplicationImage.png" alt="" class="col-11 col-sm-8" style="border: 1px solid #c0c0c0; border-radius: 20px;">
+        </div>
+    </div>
+    <div style="width: 100%; display: flex; align-items: center; justify-content: center; margin-bottom: 3rem;">
+        <a href="./accounts.html" style="color: #C0C0C0; text-decoration: none;" class="goBackButton">GO TO ACCOUNTS</a>
     </div>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
