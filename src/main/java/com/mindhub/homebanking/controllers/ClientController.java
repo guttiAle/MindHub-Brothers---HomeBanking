@@ -5,6 +5,7 @@ import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
+import com.mindhub.homebanking.service.AccountService;
 import com.mindhub.homebanking.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,8 +27,10 @@ public class ClientController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+//    @Autowired
+//    private AccountRepository accountRepository;
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountService accountService;
 
     @RequestMapping("/api/clients")
     public List<ClientDTO> getClient() {
@@ -63,7 +66,7 @@ public class ClientController {
         Account newAccount = new Account(randomNumber(), LocalDateTime.now(),0);
         clientService.saveClient(newClient);
         newClient.addAccount(newAccount);
-        accountRepository.save(newAccount);
+        accountService.saveAccount(newAccount);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -77,7 +80,7 @@ public class ClientController {
         do {
             int randomNumber = (int) (Math.random() * 100000000);
             accountNumber = "VIN-" + String.format("%08d", randomNumber);
-        } while (accountRepository.findByNumber(accountNumber) != null);
+        } while (accountService.findByNumber(accountNumber) != null);
         return accountNumber;
     }
 

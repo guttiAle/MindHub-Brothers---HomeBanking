@@ -3,13 +3,6 @@ createApp({
     data(){
         return{
             data: [],
-            // div1: false,
-            // div2: true,
-            // cuentaOrigen: "",
-            // cuentaDestino: "",
-            // monto: undefined,
-            // descripcion: "",
-            // availableAmount: undefined,
             type: "",
             payments: [],
             chosenPayment: undefined,
@@ -23,15 +16,11 @@ createApp({
         axios.get('http://localhost:8080/api/loans')
         .then(response =>{
             this.data = response.data
-            // console.log(this.calcularInteres(this.data, 60 ,"MORTGAGE" ))
-            
-            // console.log(response.data)
         })
         .catch(err => console.log(err))
         axios.get('http://localhost:8080/api/clients/current')
         .then(response =>{
             this.client = response.data.accounts
-            // console.log(response.data.accounts)
         })
     },
     methods: {
