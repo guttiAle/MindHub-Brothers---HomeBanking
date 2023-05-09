@@ -7,6 +7,9 @@ import com.mindhub.homebanking.models.TransactionType;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.repositories.TransactionRepository;
+import com.mindhub.homebanking.service.AccountService;
+import com.mindhub.homebanking.service.ClientService;
+import com.mindhub.homebanking.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,21 +22,19 @@ import java.time.LocalDateTime;
 @RestController
 public class TransactionController {
     @Autowired
-    private AccountRepository repoAccountController;
-
+    private AccountService accountService;
     @Autowired
-    private ClientRepository repository;
-
+    private ClientService clientService;
     @Autowired
-    private TransactionRepository transactionRepo;
+    private TransactionService transactionService;
 
     /*POST TO MAKE TRANSACTIONS*/
     @Transactional
     @RequestMapping(path = "/api/transactions", method = RequestMethod.POST)
     public ResponseEntity<Object> createTransaction(@RequestParam double amount, @RequestParam String description, @RequestParam String sourceNumber, @RequestParam String destinationNumber, Authentication authentication) {
-        Client client = repository.findByEmail(authentication.getName());
-        Account sourceAccount = repoAccountController.findByNumber(sourceNumber);
-        Account destinationAccount = repoAccountController.findByNumber(destinationNumber);
+        Client client = clientService.findByEmail(authentication.getName());
+        Account sourceAccount = accountService.findByNumber(sourceNumber);
+        Account destinationAccount = accountService.findByNumber(destinationNumber);
 
         if (client == null){
             return new ResponseEntity<>("Client doesn't exist", HttpStatus.FORBIDDEN);
@@ -64,8 +65,8 @@ public class TransactionController {
         Transaction transaction2 = new Transaction(amount, sourceAccount.getNumber() + " " + description, LocalDateTime.now(), TransactionType.CREDIT);
         sourceAccount.addTransaction(transaction1);
         destinationAccount.addTransaction(transaction2);
-        transactionRepo.save(transaction1);
-        transactionRepo.save(transaction2);
+        transactionService.saveTransaction(transaction1);
+        transactionService.saveTransaction(transaction2);
         sourceAccount.setBalance(sourceAccount.getBalance() - amount);
         destinationAccount.setBalance(destinationAccount.getBalance() + amount);
         return new ResponseEntity<>( HttpStatus.CREATED);

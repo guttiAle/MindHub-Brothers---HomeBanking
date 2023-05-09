@@ -6,6 +6,8 @@ import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
+import com.mindhub.homebanking.service.AccountService;
+import com.mindhub.homebanking.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,28 +23,27 @@ import static java.util.stream.Collectors.toList;
 @RestController
 public class AccountController {
     @Autowired
-    private AccountRepository repoAccountController;
+    private AccountService accountService;
 
     @Autowired
-    private ClientRepository repository;
+    private ClientService clientService;
 
     @RequestMapping("/api/accounts")
-    public List<AccountDTO> getAccount() {
-        return repoAccountController.findAll().stream().map(account -> new AccountDTO(account)).collect(toList());
+    public List<AccountDTO> getAccounts() {
+        return accountService.getAccounts();
     }
     @RequestMapping("/api/accounts/{id}")
     public AccountDTO getAccount(@PathVariable Long id){
-        Optional<Account> optionalAccount = repoAccountController.findById(id);
-        return optionalAccount.map(account -> new AccountDTO(account)).orElse(null);
+        return accountService.getAccount(id);
     }
 
     @RequestMapping(path = "/api/clients/current/accounts", method = RequestMethod.POST)
     public ResponseEntity<Object> createAccount(Authentication authentication) {
-        Client clientOwner = repository.findByEmail(authentication.getName());
+        Client clientOwner = clientService.findByEmail(authentication.getName());
         if (clientOwner.getAccount().size() < 3) {
             Account newAccount = new Account(randomNumber(), LocalDateTime.now(),0);
             clientOwner.addAccount(newAccount);
-            repoAccountController.save(newAccount);
+            accountService.saveAccount(newAccount);
         } else {
             return new ResponseEntity<>("Already have 3 accounts", HttpStatus.FORBIDDEN);
         }
@@ -54,7 +55,7 @@ public class AccountController {
         do {
             int randomNumber = (int) (Math.random() * 100000000);
             accountNumber = "VIN-" + String.format("%08d", randomNumber);
-        } while (repoAccountController.findByNumber(accountNumber) != null);
+        } while (accountService.findByNumber(accountNumber) != null);
         return accountNumber;
     }
 

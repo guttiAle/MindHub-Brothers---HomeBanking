@@ -23,14 +23,11 @@ import static java.util.stream.Collectors.toList;
 public class ClientController {
     @Autowired
     private ClientService clientService;
-
+    @Autowired
+    private AccountService accountService;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-//    @Autowired
-//    private AccountRepository accountRepository;
-    @Autowired
-    private AccountService accountService;
 
     @RequestMapping("/api/clients")
     public List<ClientDTO> getClient() {

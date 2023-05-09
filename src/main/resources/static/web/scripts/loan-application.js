@@ -76,7 +76,7 @@ createApp({
                     )
                     axios.post('/api/loans',{ id: this.payments.id, amount: this.monto, payments: this.chosenPayment, destinationAccount: this.cuentaDestino})
                     .then(response => {
-                        window.location.replace('./accounts.html');
+                        window.location.replace('./accounts.html')
                     })
                     .catch(error => {
                         if (error.response.status === 403) {

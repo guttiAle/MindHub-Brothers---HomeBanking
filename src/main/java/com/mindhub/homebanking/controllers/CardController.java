@@ -3,6 +3,8 @@ package com.mindhub.homebanking.controllers;
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.CardRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
+import com.mindhub.homebanking.service.CardService;
+import com.mindhub.homebanking.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +19,13 @@ import java.util.Random;
 @RestController
 public class CardController {
     @Autowired
-    private ClientRepository repository;
-
+    private ClientService clientService;
     @Autowired
-    private CardRepository cardRepository;
+    private CardService cardService;
 
     @RequestMapping(path = "/api/clients/current/cards", method = RequestMethod.POST)
     public ResponseEntity<Object> createCard(Authentication authentication, @RequestParam String color, @RequestParam String type) {
-        Client clientOwner = repository.findByEmail(authentication.getName());
+        Client clientOwner = clientService.findByEmail(authentication.getName());
         int contDebit = 0;
         int contCredit = 0;
         List<String> colorCREDIT = new ArrayList<>();
@@ -43,11 +44,11 @@ public class CardController {
         if(type.equals("CREDIT") && (contCredit < 3) && !colorCREDIT.contains(color)){
             Card newCard = new Card(clientOwner.getFirstName() + " " + clientOwner.getLastName(), CardType.valueOf(type) , CardColor.valueOf(color), randomNumber(), randomCvv(), LocalDateTime.now(), LocalDateTime.now().plusYears(5));
             clientOwner.addCardHolder(newCard);
-            cardRepository.save(newCard);
+            cardService.saveCard(newCard);
         } else if(type.equals("DEBIT") && (contDebit < 3) && !colorDEBIT.contains(color)) {
             Card newCard = new Card(clientOwner.getFirstName() + " " + clientOwner.getLastName(), CardType.valueOf(type), CardColor.valueOf(color), randomNumber(), randomCvv(), LocalDateTime.now(), LocalDateTime.now().plusYears(5));
             clientOwner.addCardHolder(newCard);
-            cardRepository.save(newCard);
+            cardService.saveCard(newCard);
         } else {
             return new ResponseEntity<>("Already have 3 cards", HttpStatus.FORBIDDEN);
         }
@@ -76,22 +77,4 @@ public class CardController {
 
 }
 
-
-
-
-
-//        String randomCVV = String.format("%03d", (int) ((Math.random() * 899) + 100));
-//        if (color.isBlank() || type.isBlank()) {return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);}
-//
-//        String randomNum = "";
-//
-//        do {
-//            for (int i = 0; i < 4; i++) {
-//                String fourDigits = String.format("%04d", (int) (Math.random() * 10000));
-//                randomNum += fourDigits;
-//                if (i < 3) {
-//                    randomNum += "-";
-//                }
-//            }
-//        } while (cardRepository.findByNumber(randomNum) != null);
 
