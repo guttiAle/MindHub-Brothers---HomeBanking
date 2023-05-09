@@ -72,9 +72,9 @@ public class HomebankingApplication {
 			List<Integer> personal = List.of(6,12,24);
 			List<Integer> automotive = List.of(6,12,24,36);
 
-			Loan loan1 = new Loan("MORTGAGE", 500000, mortgage);
-			Loan loan2 = new Loan("PERSONAL", 100000, personal);
-			Loan loan3 = new Loan("AUTOMOTIVE", 300000, automotive);
+			Loan loan1 = new Loan("MORTGAGE", 500000, 0.2, mortgage);
+			Loan loan2 = new Loan("PERSONAL", 100000, 0.1, personal);
+			Loan loan3 = new Loan("AUTOMOTIVE", 300000, 0.15, automotive);
 
 			loanRepo.save(loan1);
 			loanRepo.save(loan2);

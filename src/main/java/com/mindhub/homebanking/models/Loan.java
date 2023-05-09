@@ -18,6 +18,7 @@ public class Loan {
     private long id;
     private String name;
     private double maxAmount;
+    private double interest;
 
     @ElementCollection
     private List<Integer> payments = new ArrayList<>();
@@ -27,11 +28,19 @@ public class Loan {
 
     public Loan() { };
 
-    public Loan(String name, double maxAmount, List<Integer> payments) {
+//    public Loan(String name, double maxAmount, List<Integer> payments) {
+//        this.name = name;
+//        this.maxAmount = maxAmount;
+//        this.payments = payments;
+//    }
+
+    public Loan(String name, double maxAmount, double interest, List<Integer> payments) {
         this.name = name;
         this.maxAmount = maxAmount;
+        this.interest = interest;
         this.payments = payments;
     }
+
 
 //    GETTERS
 
@@ -50,7 +59,9 @@ public class Loan {
         return clientLoans.stream().map(clientLoan -> clientLoan.getClient()).collect(Collectors.toList());
     }
 
-//    SETTERS
+    public double getInterest() {return interest;}
+
+    //    SETTERS
 
     public void setClientLoans(Set<ClientLoan> clientLoans) {this.clientLoans = clientLoans;}
 
@@ -60,7 +71,8 @@ public class Loan {
 
     public void setPayments(List<Integer> payments) {this.payments = payments;}
 
-//    ADDERS
+    public void setInterest(double interest) {this.interest = interest;}
+    //    ADDERS
 
     public void addClientLoan(ClientLoan clientLoan) {
         clientLoan.setLoan(this);
