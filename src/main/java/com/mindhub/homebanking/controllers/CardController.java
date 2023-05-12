@@ -23,7 +23,7 @@ public class CardController {
     @Autowired
     private CardService cardService;
 
-    @RequestMapping(path = "/api/clients/current/cards", method = RequestMethod.POST)
+    @PostMapping("/api/clients/current/cards")
     public ResponseEntity<Object> createCard(Authentication authentication, @RequestParam String color, @RequestParam String type) {
         Client clientOwner = clientService.findByEmail(authentication.getName());
         int contDebit = 0;
@@ -40,7 +40,6 @@ public class CardController {
                 colorDEBIT.add(i.getColor().name());
             }
         }
-
         if(type.equals("CREDIT") && (contCredit < 3) && !colorCREDIT.contains(color)){
             Card newCard = new Card(clientOwner.getFirstName() + " " + clientOwner.getLastName(), CardType.valueOf(type) , CardColor.valueOf(color), randomNumber(), randomCvv(), LocalDateTime.now(), LocalDateTime.now().plusYears(5));
             clientOwner.addCardHolder(newCard);

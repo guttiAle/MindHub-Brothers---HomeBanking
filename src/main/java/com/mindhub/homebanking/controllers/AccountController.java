@@ -28,16 +28,17 @@ public class AccountController {
     @Autowired
     private ClientService clientService;
 
-    @RequestMapping("/api/accounts")
+    @GetMapping("/api/accounts")
     public List<AccountDTO> getAccounts() {
         return accountService.getAccounts();
     }
-    @RequestMapping("/api/accounts/{id}")
+
+    @GetMapping("/api/accounts/{id}")
     public AccountDTO getAccount(@PathVariable Long id){
         return accountService.getAccount(id);
     }
 
-    @RequestMapping(path = "/api/clients/current/accounts", method = RequestMethod.POST)
+    @PostMapping("/api/clients/current/accounts")
     public ResponseEntity<Object> createAccount(Authentication authentication) {
         Client clientOwner = clientService.findByEmail(authentication.getName());
         if (clientOwner.getAccount().size() < 3) {

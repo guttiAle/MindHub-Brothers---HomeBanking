@@ -28,18 +28,17 @@ public class ClientController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
-    @RequestMapping("/api/clients")
+    @GetMapping("/api/clients")
     public List<ClientDTO> getClient() {
         return clientService.getClient();
     }
 
-    @RequestMapping("/api/clients/{id}")
+    @GetMapping("/api/clients/{id}")
     public ClientDTO getClient(@PathVariable Long id){
         return clientService.getClientDTO(id);
     }
 
-    @RequestMapping(path = "/api/clients", method = RequestMethod.POST)
+    @PostMapping("/api/clients")
     public ResponseEntity<Object> register(
             @RequestParam String firstName, @RequestParam String lastName,
             @RequestParam String email, @RequestParam String password) {
@@ -67,7 +66,8 @@ public class ClientController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @RequestMapping("/api/clients/current")
+
+    @GetMapping("/api/clients/current")
     public ClientDTO getCurrentClient(Authentication authentication) {
         return clientService.getCurrentClient(authentication);
     }

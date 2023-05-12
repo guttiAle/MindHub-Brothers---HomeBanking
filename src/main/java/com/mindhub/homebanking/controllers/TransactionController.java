@@ -4,9 +4,6 @@ import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.models.Transaction;
 import com.mindhub.homebanking.models.TransactionType;
-import com.mindhub.homebanking.repositories.AccountRepository;
-import com.mindhub.homebanking.repositories.ClientRepository;
-import com.mindhub.homebanking.repositories.TransactionRepository;
 import com.mindhub.homebanking.service.AccountService;
 import com.mindhub.homebanking.service.ClientService;
 import com.mindhub.homebanking.service.TransactionService;
@@ -30,7 +27,7 @@ public class TransactionController {
 
     /*POST TO MAKE TRANSACTIONS*/
     @Transactional
-    @RequestMapping(path = "/api/transactions", method = RequestMethod.POST)
+    @PostMapping("/api/transactions")
     public ResponseEntity<Object> createTransaction(@RequestParam double amount, @RequestParam String description, @RequestParam String sourceNumber, @RequestParam String destinationNumber, Authentication authentication) {
         Client client = clientService.findByEmail(authentication.getName());
         Account sourceAccount = accountService.findByNumber(sourceNumber);
