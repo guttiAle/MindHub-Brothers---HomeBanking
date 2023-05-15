@@ -59,15 +59,4 @@ public class AccountController {
         } while (accountService.findByNumber(accountNumber) != null);
         return accountNumber;
     }
-
-
 }
-
-
-
-
-//            String accountNumber;
-//            do {
-//                int randomNumber = (int) (Math.random() * 100000000);
-//                accountNumber = "VIN-" + String.format("%08d", randomNumber);
-//            } while (repoAccountController.findByNumber(accountNumber) != null);
