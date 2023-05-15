@@ -7,10 +7,12 @@ createApp({
             email: '',
             password: '',
             error: null,
+            confirmPassword:'',
         }
     },
     methods: {
         register() {
+            if (this.password === this.confirmPassword) {
                 const data = `firstName=${this.firstName}&lastName=${this.lastName}&email=${this.email}&password=${this.password}`;
                 axios.post('/api/clients', data, {
                 headers: {
@@ -26,6 +28,9 @@ createApp({
                 .catch(error => {
                 console.error(error);
                 this.error = 'Failed to register. Please try again.';
-                });
+                })
+            } else {
+                Swal.fire('Passwords do not match')
+            }
     }
 }}).mount("#app")

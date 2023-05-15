@@ -15,14 +15,6 @@ createApp({
     },
     methods: {
         logout() {
-            // axios
-            //     .post('/api/logout')
-            //     .then(response => {
-            //     window.location.replace('./index.html');
-            // })
-            // .catch(error => {
-            //     console.error(error);
-            // })}
             Swal.fire({
                 title: 'Sure you want to log out?',
                 icon: 'warning',
