@@ -278,7 +278,7 @@ tr:nth-child(even) td {
 }
 
 /* FINAL BALANCE COLUMN */
-@media (max-width: 768px) { /* ajusta el ancho a tu necesidad */
+@media (max-width: 768px) {
     .final-balance {
         display: none;
     }

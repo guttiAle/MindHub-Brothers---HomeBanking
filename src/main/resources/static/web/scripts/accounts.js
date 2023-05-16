@@ -43,6 +43,33 @@ createApp({
             axios.post('/api/clients/current/accounts')
             .then(response => window.location.replace('./accounts.html'))
             .catch(error => {console.error(error)})
+        },
+        delAccount(number){
+            Swal.fire({
+                title: 'Sure you want to delete the account?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.post('/api/clients/current/accounts/delete',`number=${number}`)
+                    .then(response => {
+                        window.location.replace('./accounts.html')
+                    })
+                    .catch(error => {
+                        if (error.response.status === 403) {
+                            Swal.fire({
+                                icon: 'error',
+                                text: error.response.data,
+                            })
+                        } else {
+                            console.log(error)
+                        }
+                    })
+                }
+            })
         }
     }
 }).mount("#app")

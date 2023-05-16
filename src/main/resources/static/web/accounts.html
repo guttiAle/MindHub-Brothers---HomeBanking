@@ -48,7 +48,7 @@
     </div>
     <!-- BODY BOX -->
     <div class="bodyBox" style="width: 100%; display: flex; flex-wrap: wrap; border-top: 1px solid #C0C0C0;">
-        <div class="bodyCards col-12 col-sm-8" style="border-right: 1px solid #C0C0C0; margin-top: 2rem;">
+        <div class="bodyCards col-12 col-sm-8" style="border-right: 1px solid #C0C0C0; margin-top: 2rem; ">
             <div style="width: 50%;">
                 <h2 style="margin-left: 2rem; margin-left: 2rem;">Your accounts:</h2>
             </div>
@@ -58,15 +58,16 @@
             <div style="width: 50%; display: flex; justify-content: end;" v-else>
                 
             </div>
-            <div class="container" style="padding: 0; margin: 0;">
-                <div class="card" v-for="i of data.accounts" >
-                    <div class="box">
-                        <div class="content" >
+            <div class="container" style="padding: 0; margin: 0; ">
+                <div class="card" v-for="i of data.accounts">
+                    <div class="box" style="display: flex; flex-direction: column;">
+                        <div class="content" style="margin-top: 4rem;">
                             <h2 style="font-size: 2rem;"><img src="./assets/images/logoMindHubBrothers.png" alt="" style="height: 5rem;"></h2>
                             <h3>{{i.number}}</h3>
                             <p style="font-weight: 800;">Balance: ${{i.balance.toLocaleString('es-MX')}}</p>
                             <p>Account created on: <br> {{i.creationDate.slice(0, 10)}} at {{i.creationDate.slice(11, 16)}}</p>
                             <a :href="'./account.html?id=' + i.id">+INFO</a>
+                            <a @click="delAccount(i.number)" style="color: white; margin-bottom: 0; margin-top: 0; height: 2rem !important; width: 3rem !important; margin-left: 6rem; margin-right: 6rem; margin-top: 2rem; display: flex; align-items: center; justify-content: center;"><img src="./assets/images/deleteLogo.png" alt="deleteLogo" style="height: 1.5rem;"></a>
                         </div>
                     </div>
                 </div>
