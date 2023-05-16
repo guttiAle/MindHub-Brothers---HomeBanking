@@ -33,6 +33,9 @@ public class TransactionController {
         Account sourceAccount = accountService.findByNumber(sourceNumber);
         Account destinationAccount = accountService.findByNumber(destinationNumber);
 
+        if (!destinationAccount.isStatus() || !sourceAccount.isStatus()){
+            return new ResponseEntity<>("The account is no longer active", HttpStatus.FORBIDDEN);
+        }
         if (client == null){
             return new ResponseEntity<>("Client doesn't exist", HttpStatus.FORBIDDEN);
         }
@@ -58,8 +61,8 @@ public class TransactionController {
             return new ResponseEntity<>("You cannot transfer negative amounts", HttpStatus.FORBIDDEN);
         }
 
-        Transaction transaction1 = new Transaction(amount * -1,destinationAccount.getNumber() + " " + description, LocalDateTime.now() , TransactionType.DEBIT, sourceAccount.getBalance() - amount);
-        Transaction transaction2 = new Transaction(amount, sourceAccount.getNumber() + " " + description, LocalDateTime.now(), TransactionType.CREDIT, destinationAccount.getBalance() + amount);
+        Transaction transaction1 = new Transaction(amount * -1,destinationAccount.getNumber() + ": " + description, LocalDateTime.now() , TransactionType.DEBIT, sourceAccount.getBalance() - amount);
+        Transaction transaction2 = new Transaction(amount, sourceAccount.getNumber() + ": " + description, LocalDateTime.now(), TransactionType.CREDIT, destinationAccount.getBalance() + amount);
         sourceAccount.addTransaction(transaction1);
         destinationAccount.addTransaction(transaction2);
         transactionService.saveTransaction(transaction1);

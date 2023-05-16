@@ -11,6 +11,7 @@ public class AccountDTO {
     private String number;
     private LocalDateTime creationDate;
     private double balance;
+    private boolean status;
 
     private Set<TransactionDTO> transactions;
     public AccountDTO(Account account) {
@@ -19,27 +20,23 @@ public class AccountDTO {
         this.creationDate = account.getCreationDate();
         this.balance = account.getBalance();
         this.transactions = account.getTransactions().stream().map(transaction -> new TransactionDTO(transaction)).collect(Collectors.toSet());
+        this.status = account.isStatus();
     }
 
     public long getId() {
         return id;
     }
-
-
     public String getNumber() {
         return number;
     }
-
     public LocalDateTime getCreationDate() {
         return creationDate;
     }
-
     public double getBalance() {
         return balance;
     }
-
-
     public Set<TransactionDTO> getTransactions() {
         return transactions;
     }
+    public boolean isStatus() {return status;}
 }

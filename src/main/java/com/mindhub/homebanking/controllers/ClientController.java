@@ -59,7 +59,7 @@ public class ClientController {
         }
 
         Client newClient = new Client(firstName, lastName, email, passwordEncoder.encode(password));
-        Account newAccount = new Account(randomNumber(), LocalDateTime.now(),0);
+        Account newAccount = new Account(randomNumber(), LocalDateTime.now(),0, true);
         clientService.saveClient(newClient);
         newClient.addAccount(newAccount);
         accountService.saveAccount(newAccount);

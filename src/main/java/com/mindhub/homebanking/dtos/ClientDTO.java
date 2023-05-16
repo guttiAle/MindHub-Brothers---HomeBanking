@@ -27,7 +27,11 @@ public class ClientDTO {
 
         this.email = client.getEMail();
 
-        this.accounts = client.getAccount().stream().map(account -> new AccountDTO(account)).collect(Collectors.toSet());
+//        this.accounts = client.getAccount().stream().map(account -> new AccountDTO(account)).collect(Collectors.toSet());
+        this.accounts = client.getAccount().stream()
+                .filter(account -> account.isStatus())
+                .map(account -> new AccountDTO(account))
+                .collect(Collectors.toSet());
 
         this.loans = client.getClientLoans().stream().map(loan -> new ClientLoanDTO(loan)).collect(Collectors.toSet());
 

@@ -48,6 +48,9 @@ public class LoanController {
         Loan loan = loanService.findById(loanApplication.getId());
         Account destinationAccount = accountService.findByNumber(loanApplication.getDestinationAccount());
 
+        if (!destinationAccount.isStatus()){
+            return new ResponseEntity<>("The account is no longer active", HttpStatus.FORBIDDEN);
+        }
         if (loanApplication.getAmount() <= 0 || loanApplication.getPayments() <= 0){
             return new ResponseEntity<>("The amount or payments cannot be 0", HttpStatus.FORBIDDEN);
         }
