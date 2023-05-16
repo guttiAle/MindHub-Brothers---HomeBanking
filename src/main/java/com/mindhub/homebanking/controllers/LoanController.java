@@ -77,7 +77,7 @@ public class LoanController {
         client.addClientLoan(clientLoan);
         loan.addClientLoan(clientLoan);
         clientLoanService.saveClientLoan(clientLoan);
-        Transaction transaction1 = new Transaction(loanApplication.getAmount(), loan.getName() + " loan approved", LocalDateTime.now() , TransactionType.CREDIT);
+        Transaction transaction1 = new Transaction(loanApplication.getAmount(), loan.getName() + " loan approved", LocalDateTime.now() , TransactionType.CREDIT, destinationAccount.getBalance() + loanApplication.getAmount());
         destinationAccount.addTransaction(transaction1);
         transactionService.saveTransaction(transaction1);
         destinationAccount.setBalance(destinationAccount.getBalance() + loanApplication.getAmount());

@@ -276,3 +276,10 @@ tr:nth-child(even) td {
         height: 2rem;
     }
 }
+
+/* FINAL BALANCE COLUMN */
+@media (max-width: 768px) { /* ajusta el ancho a tu necesidad */
+    .final-balance {
+        display: none;
+    }
+}

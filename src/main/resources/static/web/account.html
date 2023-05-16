@@ -54,6 +54,7 @@
                     <th scope="col">DATE</th>
                     <th scope="col">DESCRIPTION</th>
                     <th scope="col">AMOUNT</th>
+                    <th scope="col" class="final-balance">FINAL BALANCE</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,7 +62,12 @@
                     <td >{{j.type}}</td>
                     <td>{{j.date.slice(0, 10)}} at {{j.date.slice(11, 16)}}hs.</td>
                     <td >{{j.description}}</td>
-                    <td :class="j.type">$ {{j.amount.toLocaleString('es-MX')}}</td>
+                    <td :class="j.type">{{j.amount.toLocaleString("en-US", { style:
+                        "currency", currency:
+                        "USD" })}}</td>
+                    <td class="final-balance">{{j.currentBalance.toLocaleString("en-US", { style:
+                        "currency", currency:
+                        "USD" })}}</td>
                 </tr>
             </tbody>
         </table>

@@ -5,6 +5,7 @@ createApp({
             data: [],
             creditCards: [],
             debitCards: [],
+            currentDate: undefined
         }
     },
     created(){
@@ -14,6 +15,8 @@ createApp({
             console.log(response.data)
             this.creditCards = this.data.filter((card) => card.type === 'CREDIT')
             this.debitCards = this.data.filter((card) => card.type === 'DEBIT')
+
+            this.currentDate = new Date().toLocaleDateString().split(",")[0].split("/").reverse().join("-");
         })
         .catch(err => console.log(err))
     },
@@ -69,6 +72,7 @@ createApp({
                         })
                     }
                 })
-            }
+            },
+            
     }
 }).mount("#app")

@@ -46,22 +46,22 @@ public class HomebankingApplication {
 			account.save(account3);
 
 //			TRANSACTIONS
-			Transaction transaction1 = new Transaction(-1500, "Compra calculadora", LocalDateTime.now(), TransactionType.DEBIT);
+			Transaction transaction1 = new Transaction(-1500, "Compra calculadora", LocalDateTime.now(), TransactionType.DEBIT, 3959.62);
 			account1.addTransaction(transaction1);
-			Transaction transaction2 = new Transaction(4456500.58, "Tranferencia recibida", LocalDateTime.now(), TransactionType.CREDIT);
+			Transaction transaction2 = new Transaction(445.58, "Tranferencia recibida", LocalDateTime.now(), TransactionType.CREDIT, 4405.2);
 			account1.addTransaction(transaction2);
-			Transaction transaction3 = new Transaction(4000.5, "Prestamo de familiar", LocalDateTime.now(), TransactionType.CREDIT);
+			Transaction transaction3 = new Transaction(4000.5, "Prestamo de familiar", LocalDateTime.now(), TransactionType.CREDIT, 15000);
 			account3.addTransaction(transaction3);
 			transactionRepo.save(transaction1);
 			transactionRepo.save(transaction2);
 			transactionRepo.save(transaction3);
 
 
-			Transaction transaction4 = new Transaction(-700, "Compra en supermercado", LocalDateTime.now(), TransactionType.DEBIT);
+			Transaction transaction4 = new Transaction(-700, "Compra en supermercado", LocalDateTime.now(), TransactionType.DEBIT, 3705.2);
 			account1.addTransaction(transaction4);
-			Transaction transaction5 = new Transaction(15400.50, "Venta de celular", LocalDateTime.now(), TransactionType.CREDIT);
+			Transaction transaction5 = new Transaction(1540.50, "Venta de celular", LocalDateTime.now(), TransactionType.CREDIT, 5245.7);
 			account1.addTransaction(transaction5);
-			Transaction transaction6 = new Transaction(-245.7, "Compra en panadería", LocalDateTime.now(), TransactionType.DEBIT);
+			Transaction transaction6 = new Transaction(-245.7, "Compra en panadería", LocalDateTime.now(), TransactionType.DEBIT, 5000);
 			account1.addTransaction(transaction6);
 			transactionRepo.save(transaction4);
 			transactionRepo.save(transaction5);
