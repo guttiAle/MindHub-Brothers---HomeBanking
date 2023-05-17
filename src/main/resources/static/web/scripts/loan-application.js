@@ -93,15 +93,9 @@ createApp({
         },
         calcularInteres(lista, valor, type) {
             let sum = 1
-            if(type == "MORTGAGE"){
-                sum += 0.2
-            } else if (type == "PERSONAL"){
-                sum += 0.1
-            } else if(type == "AUTOMOTIVE"){
-                sum += 0.15
-            }
             for (let i = 0; i < lista.length; i++) {
                 if (lista[i].name === type) {
+                    sum += lista[i].interest
                     for (let j = 0; j < lista[i].payments.length; j++) {
                         if(lista[i].payments[j] == valor){
                             sum += (j + 1) * 0.05

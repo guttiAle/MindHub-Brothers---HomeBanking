@@ -59,10 +59,10 @@ public class LoanController {
             if ((CollectionUtils.isEmpty(createLoanDTO.getPayments()))){
                 return new ResponseEntity<>("Payments cannot be 0", HttpStatus.FORBIDDEN);
             }
-            if (activeLoans.contains(createLoanDTO.getName())){
+            if (activeLoans.contains(createLoanDTO.getName().toUpperCase())){
                 return new ResponseEntity<>("The loan already exists", HttpStatus.FORBIDDEN);
             }
-            Loan newLoan = new Loan(createLoanDTO.getName(), createLoanDTO.getAmount(), createLoanDTO.getInterest(), createLoanDTO.getPayments());
+            Loan newLoan = new Loan(createLoanDTO.getName().toUpperCase(), createLoanDTO.getAmount(), createLoanDTO.getInterest(), createLoanDTO.getPayments());
             loanService.saveNewLoan(newLoan);
 
         return new ResponseEntity<>("Approved loan", HttpStatus.CREATED);

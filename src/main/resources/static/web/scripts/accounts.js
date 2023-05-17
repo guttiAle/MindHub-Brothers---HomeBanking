@@ -3,6 +3,7 @@ createApp({
     data(){
         return{
             data: [],
+            availableLoans: undefined
         }
     },
     created(){
@@ -12,6 +13,11 @@ createApp({
             console.log(response.data)
         })
         .catch(err => console.log(err))
+        axios.get('http://localhost:8080/api/loans')
+        .then(response =>{
+            this.availableLoans = response.data
+            console.log(response.data)
+        })
     },
     methods: {
         logout() {

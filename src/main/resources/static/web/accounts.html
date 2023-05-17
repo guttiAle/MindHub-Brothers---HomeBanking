@@ -79,7 +79,7 @@
                 <div>
                     <h2 style="margin-left: 2rem; margin-left: 2rem;">Your loans:</h2>
                 </div>
-                <div style=" display: flex; justify-content: end; height: 2rem;" v-if="3 > data.loans.length">
+                <div style=" display: flex; justify-content: end; height: 2rem;" v-if="availableLoans.length > data.loans.length">
                     <a class="buttonCreate" style="margin-right: 3rem; background-color: transparent; border: none; color: #C0C0C0; font-size: 20px; text-decoration: none;" href="./loan-application.html">&nbsp;&nbsp;+ Get a loan&nbsp;&nbsp;</a>
                 </div>
                 <div style=" display: flex; justify-content: end;" v-else>
