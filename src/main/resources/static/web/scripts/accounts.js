@@ -39,10 +39,33 @@ createApp({
                     })
                 }
             })},
-        create(){
-            axios.post('/api/clients/current/accounts')
-            .then(response => window.location.replace('./accounts.html'))
-            .catch(error => {console.error(error)})
+        async create(){
+                const inputOptions = new Promise((resolve) => {
+                    setTimeout(() => {
+                    resolve({
+                        'CHECKING': 'Checking account',
+                        'SAVINGS': 'Savings account'
+                    })
+                    }, 1000)
+                })
+                
+                const { value: color } = await Swal.fire({
+                    title: 'Select the type of account you want to create',
+                    input: 'radio',
+                    inputOptions: inputOptions,
+                    inputValidator: (value) => {
+                    if (!value) {
+                        return 'You need to choose something!'
+                    }
+                    }
+                })
+                
+                if (color) {
+                    Swal.fire({ html: `You selected: ${color}` })
+                    axios.post('/api/clients/current/accounts', `accountType=${color}`)
+                    .then(response => window.location.replace('./accounts.html'))
+                    .catch(error => {console.error(error)})
+                }
         },
         delAccount(number){
             Swal.fire({

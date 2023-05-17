@@ -37,9 +37,7 @@ public class LoanController {
 
 
     @GetMapping("/api/loans")
-    public List<LoanDTO> getLoans() {
-        return loanService.getLoans();
-    }
+    public List<LoanDTO> getLoans() {return loanService.getLoans();}
 
     @Transactional
     @PostMapping("/api/loans")

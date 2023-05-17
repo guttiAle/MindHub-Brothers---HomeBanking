@@ -18,6 +18,7 @@ public class Account {
     private LocalDateTime creationDate;
     private double balance;
     private boolean status;
+    private AccountType accountType;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="owner_id")
@@ -27,11 +28,12 @@ public class Account {
     private Set<Transaction> transactions = new HashSet<>();
     public Account() { }
 
-    public Account(String number, LocalDateTime creationDate, double balance, boolean status) {
+    public Account(String number, LocalDateTime creationDate, double balance, boolean status, AccountType accountType) {
         this.number = number;
         this.creationDate = creationDate;
         this.balance = balance;
         this.status = status;
+        this.accountType = accountType;
     }
 
 //    GETTERS
@@ -56,6 +58,7 @@ public class Account {
     }
     public boolean isStatus() {return status;}
 
+    public AccountType getAccountType() {return accountType;}
     //    SETTERS
 
     public void setNumber(String number) {
@@ -71,6 +74,7 @@ public class Account {
     }
     public void setStatus(boolean status) {this.status = status;}
 
+    public void setAccountType(AccountType accountType) {this.accountType = accountType;}
     //    ADDERS
 
     public void addTransaction(Transaction transaction) {

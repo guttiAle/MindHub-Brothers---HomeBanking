@@ -35,9 +35,9 @@ public class HomebankingApplication {
 			repository.save(admin);
 
 //			ACCOUNTS
-			Account account1 = new Account("VIN-001", LocalDateTime.now(), 5000, true);
-			Account account2 = new Account("VIN-002", LocalDateTime.now().plusDays(1), 7500, true);
-			Account account3 = new Account("VIN-003", LocalDateTime.now(), 15000, true);
+			Account account1 = new Account("VIN-001", LocalDateTime.now(), 5000, true, AccountType.SAVINGS);
+			Account account2 = new Account("VIN-002", LocalDateTime.now().plusDays(1), 7500, true, AccountType.SAVINGS);
+			Account account3 = new Account("VIN-003", LocalDateTime.now(), 15000, true, AccountType.SAVINGS);
 			client1.addAccount(account1);
 			client1.addAccount(account2);
 			client2.addAccount(account3);

@@ -3,6 +3,7 @@ package com.mindhub.homebanking.controllers;
 import com.mindhub.homebanking.dtos.AccountDTO;
 import com.mindhub.homebanking.dtos.ClientDTO;
 import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
@@ -65,19 +66,24 @@ public class AccountController {
     }
 
     @PostMapping("/api/clients/current/accounts")
-    public ResponseEntity<Object> createAccount(Authentication authentication) {
+    public ResponseEntity<Object> createAccount(Authentication authentication, @RequestParam String accountType) {
         Client clientOwner = clientService.findByEmail(authentication.getName());
 
         List<Account> filteredAccounts = clientOwner.getAccount().stream()
                 .filter(account -> account.isStatus())
                 .collect(Collectors.toList());
 
-        if (filteredAccounts.size() < 3) {
-            Account newAccount = new Account(randomNumber(), LocalDateTime.now(),0, true);
-            clientOwner.addAccount(newAccount);
-            accountService.saveAccount(newAccount);
+        if (validEnum(accountType.toUpperCase(), AccountType.class)) {
+            if (filteredAccounts.size() < 3) {
+                Account newAccount = new Account(randomNumber(), LocalDateTime.now(),0, true, AccountType.valueOf(accountType.toUpperCase()));
+                clientOwner.addAccount(newAccount);
+                accountService.saveAccount(newAccount);
+            } else {
+                return new ResponseEntity<>("Already have 3 accounts", HttpStatus.FORBIDDEN);
+            }
         } else {
-            return new ResponseEntity<>("Already have 3 accounts", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Account type does not exist.", HttpStatus.FORBIDDEN);
+
         }
         return new ResponseEntity<>( HttpStatus.CREATED);
     }
@@ -89,5 +95,14 @@ public class AccountController {
             accountNumber = "VIN-" + String.format("%08d", randomNumber);
         } while (accountService.findByNumber(accountNumber) != null);
         return accountNumber;
+    }
+
+    public static <T extends Enum<T>> boolean validEnum(String valor, Class<T> enumClass) {
+        try {
+            Enum.valueOf(enumClass, valor);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 }
