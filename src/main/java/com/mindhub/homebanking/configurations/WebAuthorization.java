@@ -58,6 +58,7 @@ public class WebAuthorization {
                 .antMatchers(HttpMethod.GET, "/api/accounts").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.PATCH, "/api/accounts/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.GET, "/api/accounts/**").hasAuthority("ADMIN")
+//                .antMatchers(HttpMethod.POST, "/api/loans/create-new-loan").hasAuthority("ADMIN")
         ;
 
         http.formLogin()

@@ -9,6 +9,7 @@ import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.service.AccountService;
 import com.mindhub.homebanking.service.ClientService;
+import com.mindhub.homebanking.utils.AccountUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -68,12 +69,13 @@ public class AccountController {
     @PostMapping("/api/clients/current/accounts")
     public ResponseEntity<Object> createAccount(Authentication authentication, @RequestParam String accountType) {
         Client clientOwner = clientService.findByEmail(authentication.getName());
+        boolean validEnum = AccountUtils.validEnum(accountType.toUpperCase(), AccountType.class);
 
         List<Account> filteredAccounts = clientOwner.getAccount().stream()
                 .filter(account -> account.isStatus())
                 .collect(Collectors.toList());
 
-        if (validEnum(accountType.toUpperCase(), AccountType.class)) {
+        if (validEnum) {
             if (filteredAccounts.size() < 3) {
                 Account newAccount = new Account(randomNumber(), LocalDateTime.now(),0, true, AccountType.valueOf(accountType.toUpperCase()));
                 clientOwner.addAccount(newAccount);
@@ -82,7 +84,7 @@ public class AccountController {
                 return new ResponseEntity<>("Already have 3 accounts", HttpStatus.FORBIDDEN);
             }
         } else {
-            return new ResponseEntity<>("Account type does not exist.", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Account type does not exist", HttpStatus.FORBIDDEN);
 
         }
         return new ResponseEntity<>( HttpStatus.CREATED);
@@ -97,12 +99,5 @@ public class AccountController {
         return accountNumber;
     }
 
-    public static <T extends Enum<T>> boolean validEnum(String valor, Class<T> enumClass) {
-        try {
-            Enum.valueOf(enumClass, valor);
-            return true;
-        } catch (IllegalArgumentException e) {
-            return false;
-        }
-    }
+
 }

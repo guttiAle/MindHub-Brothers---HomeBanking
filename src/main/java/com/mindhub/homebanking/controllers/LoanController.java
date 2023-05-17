@@ -1,5 +1,6 @@
 package com.mindhub.homebanking.controllers;
 
+import com.mindhub.homebanking.dtos.CreateLoanDTO;
 import com.mindhub.homebanking.dtos.LoanApplicationDTO;
 import com.mindhub.homebanking.dtos.LoanDTO;
 import com.mindhub.homebanking.models.*;
@@ -9,10 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -39,6 +38,35 @@ public class LoanController {
     @GetMapping("/api/loans")
     public List<LoanDTO> getLoans() {return loanService.getLoans();}
 
+    @PostMapping("/api/loans/create")
+    public ResponseEntity<Object> createNewLoan (Authentication authentication, @RequestBody CreateLoanDTO createLoanDTO){
+            Client admin = clientService.findByEmail("admin@admin.com");
+            Client currentClient = clientService.findByEmail(authentication.getName());
+            List<String> activeLoans = loanService.getLoans().stream().map(loan -> loan.getName()).collect(toList());
+
+            if (admin != currentClient){
+                return new ResponseEntity<>("You need authorization", HttpStatus.FORBIDDEN);
+            }
+            if (createLoanDTO.getName().isEmpty()){
+                return new ResponseEntity<>("Name cannot be empty", HttpStatus.FORBIDDEN);
+            }
+            if (createLoanDTO.getAmount() == 0.0){
+                return new ResponseEntity<>("Amount cannot be 0", HttpStatus.FORBIDDEN);
+            }
+            if (createLoanDTO.getInterest() == 0.0){
+                return new ResponseEntity<>("Interest cannot be 0", HttpStatus.FORBIDDEN);
+            }
+            if ((CollectionUtils.isEmpty(createLoanDTO.getPayments()))){
+                return new ResponseEntity<>("Payments cannot be 0", HttpStatus.FORBIDDEN);
+            }
+            if (activeLoans.contains(createLoanDTO.getName())){
+                return new ResponseEntity<>("The loan already exists", HttpStatus.FORBIDDEN);
+            }
+            Loan newLoan = new Loan(createLoanDTO.getName(), createLoanDTO.getAmount(), createLoanDTO.getInterest(), createLoanDTO.getPayments());
+            loanService.saveNewLoan(newLoan);
+
+        return new ResponseEntity<>("Approved loan", HttpStatus.CREATED);
+    }
     @Transactional
     @PostMapping("/api/loans")
     public ResponseEntity<Object> applicationForLoan (Authentication authentication, @RequestBody LoanApplicationDTO loanApplication){
