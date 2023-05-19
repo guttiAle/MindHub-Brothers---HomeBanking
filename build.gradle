@@ -22,8 +22,15 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-//	implementation 'org.postgresql:postgresql'
 	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
+
+
+//	PostgreSQL dependency
+//	implementation 'org.postgresql:postgresql'
+
+//  Dependency to create PDF
+	implementation 'com.github.librepdf:openpdf:1.3.8'
+
 }
 
 tasks.named('test') {
