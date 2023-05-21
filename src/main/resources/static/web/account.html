@@ -46,7 +46,7 @@
             </div>
         </div>
     </div>
-    <div class="table-responsive" style="min-height: 60vh;">
+    <div class="table-responsive" style="min-height: 40vh; margin-bottom: 2rem;">
         <table id="accountTable" v-if="account.transactions.length > 0">  
             <thead>
                 <tr >
@@ -72,6 +72,16 @@
             </tbody>
         </table>
         <h2 v-else style="height: 40vh; display: flex; align-items: center; justify-content: center;"> There are no transactions on this account</h2>
+    </div>
+    <div style="border: 1px solid #12162A; border-radius: 10px; min-height: 6rem; margin: auto; margin-bottom: 2rem; display: flex; flex-direction: column; background-color: #C0C0C0;" class="col-12 col-sm-5">
+        <h3 style="font-size: 20px; color:#12162A; font-weight: 500; text-align: center; padding: 0.5rem;" class="m-0 col-12">Download your transaction history by selecting dates:</h3>
+        <form style="width: 100%; min-height: 4rem; display: flex; justify-content: center; gap:2rem; align-items: center; flex-wrap: wrap; background-color: #C0C0C0; color: #12162A;">
+            <label for="fecha">From:</label>
+            <input type="datetime-local" v-model="fromDate" id="fromDate" name="fromDate">
+            <label for="fecha">To:</label>
+            <input type="datetime-local" v-model="toDate" id="toDate" name="toDate">
+        </form>
+        <button class="buttonCreate" type="button" @click="getTransactionsHistory" style="background-color: transparent; border: none; color: hsl(230, 40%, 12%); font-size: 17px; align-self: self-end; width: 8rem; margin-bottom: 0.5rem; margin-right: 3rem;">+ DOWNLOAD</button>
     </div>
     <div style="width: 100%; display: flex; align-items: center; justify-content: center; margin-bottom: 3rem;">
         <a href="./accounts.html" style="color: #C0C0C0; text-decoration: none;" class="goBackButton">GO TO ACCOUNTS</a>
