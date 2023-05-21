@@ -85,7 +85,7 @@ public class TransactionController {
 
     /*GET TRANSACTIONS BY DATE BETWEEN*/
     @GetMapping("/api/transactions")
-    public ResponseEntity<Object> getTransactionsByDate(HttpServletResponse response , Authentication authentication, String accountNumber, @RequestParam String start, String end) throws IOException {
+    public ResponseEntity<Object> getTransactionsByDate(HttpServletResponse response , Authentication authentication,@RequestParam String accountNumber,String start, String end) throws IOException {
         Client client = clientService.findByEmail(authentication.getName());
         Account account = accountService.findByNumber(accountNumber);
         List<Transaction> transactions;
@@ -99,23 +99,20 @@ public class TransactionController {
         if (!client.getAccount().contains(account)) {
             return new ResponseEntity<>("Account doesn't belong to this client", HttpStatus.FORBIDDEN);
         }
-        if (start.isEmpty() || end.isEmpty()) {
+        if(start.equals("all") || end.equals("all") || start.isEmpty() || end.isEmpty()){
             transactions = transactionService.getTransactionsByAccount(account);
+            this.pdfGeneratorService.export(response, transactions, account, "all", "all");
         } else {
             LocalDateTime startDate = LocalDateTime.parse(start);
             LocalDateTime endDate = LocalDateTime.parse(end);
             transactions = transactionService.getTransactionsByAccountAndDate(account, startDate, endDate);
 
             response.setContentType("application/pdf");
-            DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");
-            String currentDateTime = dateFormatter.format(new Date());
-
             String headerKey = "Content-Disposition";
-            String headerValue = "attachment; filename=pdf_" + currentDateTime + ".pdf";
+            String headerValue = "attachment; filename=MB-" + account.getNumber() + "-Transactions.pdf";
             response.setHeader(headerKey, headerValue);
-
+            this.pdfGeneratorService.export(response, transactions, account, start, end);
         }
-        this.pdfGeneratorService.export(response, transactions, account, start, end);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

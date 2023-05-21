@@ -140,14 +140,17 @@ public class PDFGeneratorImplement implements PDFGeneratorService {
         document.add(pdfPTable);
 
 //        Date
-        int size = transactions.size();
-
-         ;
-        Paragraph date = new Paragraph("From " + start.substring(0,10) + " to " + end.substring(0,10), fontBody);
-
-        date.setAlignment(Element.ALIGN_LEFT);
-        date.setSpacingAfter(10);
-        document.add(date);
+        if (start.equals("all") || end.equals("all")){
+            Paragraph date = new Paragraph("All transaction history", fontBody);
+            date.setAlignment(Element.ALIGN_LEFT);
+            date.setSpacingAfter(10);
+            document.add(date);
+        } else {
+            Paragraph date = new Paragraph("From " + start.substring(0,10) + " to " + end.substring(0,10), fontBody);
+            date.setAlignment(Element.ALIGN_LEFT);
+            date.setSpacingAfter(10);
+            document.add(date);
+        }
 
 
         document.close();
