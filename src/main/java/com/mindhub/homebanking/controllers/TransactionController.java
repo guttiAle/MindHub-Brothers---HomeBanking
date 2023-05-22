@@ -85,7 +85,7 @@ public class TransactionController {
 
     /*GET TRANSACTIONS BY DATE BETWEEN*/
     @GetMapping("/api/transactions")
-    public ResponseEntity<Object> getTransactionsByDate(HttpServletResponse response , Authentication authentication,@RequestParam String accountNumber,String start, String end) throws IOException {
+    public ResponseEntity<Object> getTransactionsByDate(HttpServletResponse response , Authentication authentication,@RequestParam String accountNumber, String start, String end) throws IOException {
         Client client = clientService.findByEmail(authentication.getName());
         Account account = accountService.findByNumber(accountNumber);
         List<Transaction> transactions;
@@ -102,6 +102,12 @@ public class TransactionController {
         if(start.equals("all") || end.equals("all") || start.isEmpty() || end.isEmpty()){
             transactions = transactionService.getTransactionsByAccount(account);
             this.pdfGeneratorService.export(response, transactions, account, "all", "all");
+
+            response.setContentType("application/pdf");
+            String headerKey = "Content-Disposition";
+            String headerValue = "attachment; filename=MB-" + account.getNumber() + "-Transactions.pdf";
+            response.setHeader(headerKey, headerValue);
+            this.pdfGeneratorService.export(response, transactions, account, start, end);
         } else {
             LocalDateTime startDate = LocalDateTime.parse(start);
             LocalDateTime endDate = LocalDateTime.parse(end);

@@ -67,7 +67,7 @@ createApp({
                 axios({
                     method: 'GET',
                     url: '/api/transactions',
-                    responseType: 'blob', // Especificamos que la respuesta es un archivo blob
+                    responseType: 'blob',
                     params: {
                         accountNumber: `${this.account.number}`,
                         start: 'all',
@@ -75,24 +75,20 @@ createApp({
                         }
                     })
                         .then(response => {
-                        // Crear una URL del blob de la respuesta
-                        const url = window.URL.createObjectURL(new Blob([response.data]));
+                        const url = window.URL.createObjectURL(new Blob([response.data]))
                     
-                        // Crear un enlace para descargar el archivo
-                        const link = document.createElement('a');
-                        link.href = url;
-                        link.setAttribute('download', 'transaction-history.pdf');
-                        document.body.appendChild(link);
+                        const link = document.createElement('a')
+                        link.href = url
+                        link.setAttribute('download', 'transaction-history.pdf')
+                        document.body.appendChild(link)
                     
-                        // Hacer clic en el enlace para iniciar la descarga
-                        link.click();
+                        link.click()
                     
-                        // Liberar la URL del blob
-                        window.URL.revokeObjectURL(url);
+                        window.URL.revokeObjectURL(url)
                         })
                         .catch(error => {
-                        console.error(error);
-                });
+                        console.error(error)
+                })
             } else {
                 window.location.replace(`/api/transactions?accountNumber=${this.account.number}&start=${this.fromDate}&end=${this.toDate}`)
             }
