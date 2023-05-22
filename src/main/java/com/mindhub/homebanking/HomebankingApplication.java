@@ -81,20 +81,20 @@ public class HomebankingApplication {
 			loanRepo.save(loan3);
 
 //			CLIENT LOANS
-			ClientLoan clientLoan1 = new ClientLoan( 400000, 60);
+			ClientLoan clientLoan1 = new ClientLoan( 400000, 60, true);
 			client1.addClientLoan(clientLoan1);
 			loan1.addClientLoan(clientLoan1);
 			clientLoanRepo.save(clientLoan1);
-			ClientLoan clientLoan2 = new ClientLoan(50000, 12);
+			ClientLoan clientLoan2 = new ClientLoan(50000, 12, true);
 			client1.addClientLoan(clientLoan2);
 			loan2.addClientLoan(clientLoan2);
 			clientLoanRepo.save(clientLoan2);
 
-			ClientLoan clientLoan3 = new ClientLoan(100000, 24);
+			ClientLoan clientLoan3 = new ClientLoan(100000, 24, true);
 			client2.addClientLoan(clientLoan3);
 			loan1.addClientLoan(clientLoan3);
 			clientLoanRepo.save(clientLoan3);
-			ClientLoan clientLoan4 = new ClientLoan(200000, 36);
+			ClientLoan clientLoan4 = new ClientLoan(200000, 36, true);
 			client2.addClientLoan(clientLoan4);
 			loan3.addClientLoan(clientLoan4);
 			clientLoanRepo.save(clientLoan4);

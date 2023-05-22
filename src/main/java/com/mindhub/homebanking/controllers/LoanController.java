@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -37,6 +38,8 @@ public class LoanController {
 
     @GetMapping("/api/loans")
     public List<LoanDTO> getLoans() {return loanService.getLoans();}
+
+//    CREATE NEW LOAN - ADMIN
 
     @PostMapping("/api/loans/create")
     public ResponseEntity<Object> createNewLoan (Authentication authentication, @RequestBody CreateLoanDTO createLoanDTO){
@@ -67,6 +70,8 @@ public class LoanController {
 
         return new ResponseEntity<>("Approved loan", HttpStatus.CREATED);
     }
+
+//    APPLICATION TO GET A LOAN
     @Transactional
     @PostMapping("/api/loans")
     public ResponseEntity<Object> applicationForLoan (Authentication authentication, @RequestBody LoanApplicationDTO loanApplication){
@@ -98,11 +103,17 @@ public class LoanController {
         if (!loan.getPayments().contains(loanApplication.getPayments())) {
             return new ResponseEntity<>("Payment not available", HttpStatus.FORBIDDEN);
         }
-        List<String> loansName = client.getClientLoans().stream().map(clientLoan1 -> clientLoan1.getLoan().getName()).collect(Collectors.toList());
+//        List<String> loansName = client.getClientLoans().stream().map(clientLoan1 -> clientLoan1.getLoan().getName()).collect(Collectors.toList());
+
+        List<String> loansName = client.getClientLoans().stream()
+                .filter(clientLoan1 -> clientLoan1.isStatus())
+                .map(clientLoan1 -> clientLoan1.getLoan().getName())
+                .collect(Collectors.toList());
+
         if (loansName.contains(loan.getName())){
             return new ResponseEntity<>("You already have an active loan", HttpStatus.FORBIDDEN);
         }
-        ClientLoan clientLoan = new ClientLoan((loanApplication.getAmount() * (1 + (loan.getInterest() + calcularInteres(loan.getPayments(), loanApplication.getPayments())))), loanApplication.getPayments());
+        ClientLoan clientLoan = new ClientLoan((loanApplication.getAmount() * (1 + (loan.getInterest() + calcularInteres(loan.getPayments(), loanApplication.getPayments())))), loanApplication.getPayments(), true);
         client.addClientLoan(clientLoan);
         loan.addClientLoan(clientLoan);
         clientLoanService.saveClientLoan(clientLoan);
@@ -113,6 +124,8 @@ public class LoanController {
 
         return new ResponseEntity<>("Approved loan", HttpStatus.CREATED);
     }
+
+
     public static double calcularInteres(List<Integer> lista, int valor) {
         for (int i = 0; i < lista.size(); i++) {
             if (lista.get(i) == valor) {

@@ -79,7 +79,7 @@
                 <div>
                     <h2 style="margin-left: 2rem; margin-left: 2rem;">Your loans:</h2>
                 </div>
-                <div style=" display: flex; justify-content: end; height: 2rem;" v-if="availableLoans.length > data.loans.length">
+                <div style=" display: flex; justify-content: end; height: 2rem;" v-if="availableLoans.length > activeClientLoan.length">
                     <a class="buttonCreate" style="margin-right: 3rem; background-color: transparent; border: none; color: #C0C0C0; font-size: 20px; text-decoration: none;" href="./loan-application.html">&nbsp;&nbsp;+ Get a loan&nbsp;&nbsp;</a>
                 </div>
                 <div style=" display: flex; justify-content: end;" v-else>
@@ -87,7 +87,7 @@
                 </div>
             </div>
             <!-- <h2 style="margin-left: 2rem;">Your loans:</h2> -->
-            <div class="modal-body" v-if="data.loans.length > 0" style="margin: 30px;">
+            <div class="modal-body" v-if="activeClientLoan.length > 0" style="margin: 30px;">
                 <table style="width: 100%;">
                     <thead>
                         <tr style="height: 3rem; border-bottom: 2px solid #C0C0C0;">
@@ -97,7 +97,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="j of data.loans" style="height: 3rem;">
+                        <tr v-for="j of activeClientLoan" style="height: 3rem;">
                             <td style="text-align: center;">{{j.loanName}}</td>
                             <td style="text-align: center;">$ {{j.amount.toLocaleString('es-MX')}}</td>
                             <td style="text-align: center;">{{j.payments}}</td>

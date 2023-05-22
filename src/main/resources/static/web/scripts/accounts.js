@@ -3,19 +3,25 @@ createApp({
     data(){
         return{
             data: [],
-            availableLoans: undefined
+            availableLoans: undefined,
+            activeClientLoan: undefined
         }
     },
     created(){
         axios.get('http://localhost:8080/api/clients/current')
         .then(response =>{
             this.data = response.data
-            console.log(response.data)
+            // console.log(response.data)
         })
         .catch(err => console.log(err))
         axios.get('http://localhost:8080/api/loans')
         .then(response =>{
             this.availableLoans = response.data
+            // console.log(response.data)
+        })
+        axios.get('http://localhost:8080/api/current-loans')
+        .then(response => {
+            this.activeClientLoan = response.data
             console.log(response.data)
         })
     },
