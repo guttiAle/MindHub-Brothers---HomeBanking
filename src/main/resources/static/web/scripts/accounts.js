@@ -4,22 +4,25 @@ createApp({
         return{
             data: [],
             availableLoans: undefined,
-            activeClientLoan: undefined
+            activeClientLoan: undefined,
+            loanType: '',
+            numberAccount: '',
+            amountOfPayments: undefined
         }
     },
     created(){
-        axios.get('http://localhost:8080/api/clients/current')
+        axios.get('/api/clients/current')
         .then(response =>{
             this.data = response.data
             // console.log(response.data)
         })
         .catch(err => console.log(err))
-        axios.get('http://localhost:8080/api/loans')
+        axios.get('/api/loans')
         .then(response =>{
             this.availableLoans = response.data
             // console.log(response.data)
         })
-        axios.get('http://localhost:8080/api/current-loans')
+        axios.get('/api/current-loans')
         .then(response => {
             this.activeClientLoan = response.data
             console.log(response.data)
@@ -90,6 +93,33 @@ createApp({
             }).then((result) => {
                 if (result.isConfirmed) {
                     axios.post('/api/clients/current/accounts/delete',`number=${number}`)
+                    .then(response => {
+                        window.location.replace('./accounts.html')
+                    })
+                    .catch(error => {
+                        if (error.response.status === 403) {
+                            Swal.fire({
+                                icon: 'error',
+                                text: error.response.data,
+                            })
+                        } else {
+                            console.log(error)
+                        }
+                    })
+                }
+            })
+        },
+        payLoan(){
+            Swal.fire({
+                title: 'Are you sure you want to transfer?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.post('/api/loans/pay', `loanName=${this.loanType}&amountOfPayments=${this.amountOfPayments}&accountNumber=${this.numberAccount}`)
                     .then(response => {
                         window.location.replace('./accounts.html')
                     })

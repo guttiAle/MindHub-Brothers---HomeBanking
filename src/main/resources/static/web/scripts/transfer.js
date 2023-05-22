@@ -14,7 +14,7 @@ createApp({
         }
     },
     created(){
-        axios.get('http://localhost:8080/api/clients/current')
+        axios.get('/api/clients/current')
         .then(response =>{
             this.data = response.data
         })
@@ -22,14 +22,6 @@ createApp({
     },
     methods: {
         logout() {
-            // axios
-            //     .post('/api/logout')
-            //     .then(response => {
-            //     window.location.replace('./index.html');
-            // })
-            // .catch(error => {
-            //     console.error(error);
-            // })}
             Swal.fire({
                 title: 'Sure you want to log out?',
                 icon: 'warning',

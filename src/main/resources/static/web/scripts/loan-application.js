@@ -13,12 +13,12 @@ createApp({
         }
     },
     created(){
-        axios.get('http://localhost:8080/api/loans')
+        axios.get('/api/loans')
         .then(response =>{
             this.data = response.data
         })
         .catch(err => console.log(err))
-        axios.get('http://localhost:8080/api/clients/current')
+        axios.get('/api/clients/current')
         .then(response =>{
             this.client = response.data.accounts
         })

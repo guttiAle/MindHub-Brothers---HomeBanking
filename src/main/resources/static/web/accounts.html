@@ -65,7 +65,9 @@
                         <div class="content" style="margin-top: 2rem;">
                             <h2 style="font-size: 2rem;"><img src="./assets/images/logoMindHubBrothers.png" alt="" style="height: 5rem;"></h2>
                             <h3>{{i.number}}</h3>
-                            <p style="font-weight: 800;">Balance: ${{i.balance.toLocaleString('es-MX')}}</p>
+                            <p style="font-weight: 800;">Balance: {{i.balance.toLocaleString("en-US", { style:
+                                "currency", currency:
+                                "USD" })}}</p>
                             <p>Account created on: <br> {{i.creationDate.slice(0, 10)}} at {{i.creationDate.slice(11, 16)}}</p>
                             <a :href="'./account.html?id=' + i.id">+INFO</a>
                             <a @click="delAccount(i.number)" style="color: white; margin-bottom: 0; margin-top: 0; height: 2rem !important; width: 3rem !important; margin-left: 6rem; margin-right: 6rem; margin-top: 2rem; display: flex; align-items: center; justify-content: center;"><img src="./assets/images/deleteLogo.png" alt="deleteLogo" style="height: 1.5rem;"></a>
@@ -99,7 +101,9 @@
                     <tbody>
                         <tr v-for="j of activeClientLoan" style="height: 3rem;">
                             <td style="text-align: center;">{{j.loanName}}</td>
-                            <td style="text-align: center;">$ {{j.amount.toLocaleString('es-MX')}}</td>
+                            <td style="text-align: center;">{{j.amount.toLocaleString("en-US", { style:
+                                "currency", currency:
+                                "USD" })}}</td>
                             <td style="text-align: center;">{{j.payments}}</td>
                         </tr>
                     </tbody>
@@ -107,6 +111,51 @@
             </div>
             <div class="modal-body" v-else style="display: flex; justify-content: center;">
                 <h4 style="margin-top: 2rem;">You do not have any active loan</h4>
+            </div>
+            <!-- PAY A LOAN -->
+            <!-- Button trigger modal -->
+            <div v-if="activeClientLoan.length > 0" style="width: 100%; text-align: center;">
+                <a class="buttonCreate" data-bs-toggle="modal" data-bs-target="#exampleModal"  style="background-color: transparent; border: none; color: #C0C0C0; font-size: 20px; text-decoration: none; padding: 0.2rem;" href="./loan-application.html">&nbsp;&nbsp;+ Pay your loans&nbsp;&nbsp;</a>
+            </div>
+            <div v-else>
+
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color: #C0C0C0;">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: #12162A; font-size: larger; font-weight: 550;">Pay a loan:</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" style="background-color: #C0C0C0;">
+                            <p style="color: #C0C0C0; font-weight: 550; font-size: 20px; text-align: center; border-radius: 10px; background-color: #12162A; padding: 0.2rem;">Select the type of loan to pay: </p>
+                            <div style="display: flex; justify-content: space-around; margin-bottom: 1rem; flex-wrap: wrap;">
+                                <label v-for=" i of activeClientLoan" style="font-size: large; color: #12162A;">
+                                    <input type="radio"  v-model="loanType" v-bind:value="i.loanName" name="loanType">
+                                    {{i.loanName}}
+                                </label>
+                            </div>
+                            <p style="color: #C0C0C0; font-weight: 550; font-size: 20px; text-align: center; border-radius: 10px; background-color: #12162A; padding: 0.2rem;">Select the account from which you want to pay: </p>
+                            <div style="display: flex; justify-content: space-around; margin-bottom: 1rem; flex-wrap: wrap;">
+                                <label v-for=" i of data.accounts" style="font-size: large; color: #12162A;">
+                                    <input type="radio"  v-model="numberAccount" v-bind:value="i.number" name="numberAccount">
+                                    {{i.number}}
+                                </label>
+                            </div>
+                            <p style="color: #C0C0C0; font-weight: 550; font-size: 20px; text-align: center; border-radius: 10px; background-color: #12162A; padding: 0.2rem;">Select how many payments you want to make: </p>
+                            <div style="display: flex; justify-content: space-around; margin-bottom: 1rem; flex-wrap: wrap;">
+                                <label style="font-size: large; color: #12162A;">
+                                    <input type="number"  v-model="amountOfPayments"  name="amountOfPayments">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="background-color: #C0C0C0;">
+                            <button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn" @click="payLoan" style="background-color: #12162A; color: #C0C0C0;">Make payment</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

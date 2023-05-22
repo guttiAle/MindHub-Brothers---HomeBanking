@@ -1,7 +1,7 @@
 const {createApp} = Vue
 let valorID = (new URLSearchParams(location.search)).get("id")
 // const url = `http://localhost:8080/api/accounts/${valorID}`
-const url = `http://localhost:8080/api/clients/current`
+const url = `/api/clients/current`
 
 createApp({
     data(){
