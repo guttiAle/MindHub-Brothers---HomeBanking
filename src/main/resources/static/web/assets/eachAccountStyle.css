@@ -254,3 +254,40 @@ tr:nth-child(even) td {
 #activeButton:hover{
     background-color: transparent !important;
 }
+
+/* FOOTER */
+
+@media screen and (max-width: 768px) {
+    footer a {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 2rem;
+        width: 2rem !important;
+        color: transparent;
+        text-decoration: none;
+        font-size: 0;
+    }
+    
+    footer a img {
+        margin-right: 0.5rem;
+        height: 2rem;
+    }
+}
+
+/* FINAL BALANCE COLUMN */
+@media (max-width: 768px) {
+    .final-balance {
+        display: none;
+    }
+}
+
+/* BOTON CREATE */
+
+.buttonCreate:hover {
+    background-color: hsl(230, 40%, 12%)!important;
+    color:  #C0C0C0 !important;
+    border-radius: 12px;
+}

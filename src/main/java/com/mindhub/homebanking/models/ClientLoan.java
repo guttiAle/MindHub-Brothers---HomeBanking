@@ -17,6 +17,7 @@ public class ClientLoan {
     private double amount;
 
     private int payments;
+    private boolean status;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="clientLoan")
     private Client client;
@@ -29,9 +30,10 @@ public class ClientLoan {
     public ClientLoan() {
     }
 
-    public ClientLoan( double amount, int payments) {
+    public ClientLoan( double amount, int payments, boolean status) {
         this.amount = amount;
         this.payments = payments;
+        this.status = status;
     }
 
 //    GETTERS
@@ -46,7 +48,9 @@ public class ClientLoan {
 
     public Loan getLoan() {return loan;}
 
-//    SETTERS
+    public boolean isStatus() {return status;}
+
+    //    SETTERS
 
     public void setAmount(double amount) {this.amount = amount;}
 
@@ -59,4 +63,5 @@ public class ClientLoan {
 
     public void setLoan(Loan loan) {this.loan = loan;}
 
+    public void setStatus(boolean status) {this.status = status;}
 }

@@ -17,6 +17,7 @@ public class CardDTO {
     private CardType type;
     private CardColor color;
     private String cardOwner;
+    private boolean status;
 
     public CardDTO(Card card) {
         this.id = card.getId();
@@ -27,6 +28,7 @@ public class CardDTO {
         this.thruDate = card.getThruDate();
         this.type = card.getType();
         this.color = card.getColor();
+        this.status = card.isStatus();
     }
 
 //    GETTERS
@@ -46,4 +48,6 @@ public class CardDTO {
     public CardColor getColor() {return color;}
 
     public String getCardOwner() {return cardOwner;}
+
+    public boolean isStatus() {return status;}
 }

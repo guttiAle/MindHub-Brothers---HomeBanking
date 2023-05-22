@@ -35,9 +35,9 @@ public class HomebankingApplication {
 			repository.save(admin);
 
 //			ACCOUNTS
-			Account account1 = new Account("VIN-001", LocalDateTime.now(), 5000);
-			Account account2 = new Account("VIN-002", LocalDateTime.now().plusDays(1), 7500);
-			Account account3 = new Account("VIN-003", LocalDateTime.now(), 15000);
+			Account account1 = new Account("VIN-001", LocalDateTime.now(), 5000, true, AccountType.SAVINGS);
+			Account account2 = new Account("VIN-002", LocalDateTime.now().plusDays(1), 7500, true, AccountType.SAVINGS);
+			Account account3 = new Account("VIN-003", LocalDateTime.now(), 15000, true, AccountType.SAVINGS);
 			client1.addAccount(account1);
 			client1.addAccount(account2);
 			client2.addAccount(account3);
@@ -46,22 +46,22 @@ public class HomebankingApplication {
 			account.save(account3);
 
 //			TRANSACTIONS
-			Transaction transaction1 = new Transaction(-1500, "Compra calculadora", LocalDateTime.now(), TransactionType.DEBIT);
+			Transaction transaction1 = new Transaction(-1500, "Compra calculadora", LocalDateTime.now(), TransactionType.DEBIT, 3959.62);
 			account1.addTransaction(transaction1);
-			Transaction transaction2 = new Transaction(4456500.58, "Tranferencia recibida", LocalDateTime.now(), TransactionType.CREDIT);
+			Transaction transaction2 = new Transaction(445.58, "Tranferencia recibida", LocalDateTime.now(), TransactionType.CREDIT, 4405.2);
 			account1.addTransaction(transaction2);
-			Transaction transaction3 = new Transaction(4000.5, "Prestamo de familiar", LocalDateTime.now(), TransactionType.CREDIT);
+			Transaction transaction3 = new Transaction(4000.5, "Prestamo de familiar", LocalDateTime.now(), TransactionType.CREDIT, 15000);
 			account3.addTransaction(transaction3);
 			transactionRepo.save(transaction1);
 			transactionRepo.save(transaction2);
 			transactionRepo.save(transaction3);
 
 
-			Transaction transaction4 = new Transaction(-700, "Compra en supermercado", LocalDateTime.now(), TransactionType.DEBIT);
+			Transaction transaction4 = new Transaction(-700, "Compra en supermercado", LocalDateTime.now(), TransactionType.DEBIT, 3705.2);
 			account1.addTransaction(transaction4);
-			Transaction transaction5 = new Transaction(15400.50, "Venta de celular", LocalDateTime.now(), TransactionType.CREDIT);
+			Transaction transaction5 = new Transaction(1540.50, "Venta de celular", LocalDateTime.now(), TransactionType.CREDIT, 5245.7);
 			account1.addTransaction(transaction5);
-			Transaction transaction6 = new Transaction(-245.7, "Compra en panadería", LocalDateTime.now(), TransactionType.DEBIT);
+			Transaction transaction6 = new Transaction(-245.7, "Compra en panadería", LocalDateTime.now(), TransactionType.DEBIT, 5000);
 			account1.addTransaction(transaction6);
 			transactionRepo.save(transaction4);
 			transactionRepo.save(transaction5);
@@ -81,20 +81,20 @@ public class HomebankingApplication {
 			loanRepo.save(loan3);
 
 //			CLIENT LOANS
-			ClientLoan clientLoan1 = new ClientLoan( 400000, 60);
+			ClientLoan clientLoan1 = new ClientLoan( 400000, 60, true);
 			client1.addClientLoan(clientLoan1);
 			loan1.addClientLoan(clientLoan1);
 			clientLoanRepo.save(clientLoan1);
-			ClientLoan clientLoan2 = new ClientLoan(50000, 12);
+			ClientLoan clientLoan2 = new ClientLoan(50000, 12, true);
 			client1.addClientLoan(clientLoan2);
 			loan2.addClientLoan(clientLoan2);
 			clientLoanRepo.save(clientLoan2);
 
-			ClientLoan clientLoan3 = new ClientLoan(100000, 24);
+			ClientLoan clientLoan3 = new ClientLoan(100000, 24, true);
 			client2.addClientLoan(clientLoan3);
 			loan1.addClientLoan(clientLoan3);
 			clientLoanRepo.save(clientLoan3);
-			ClientLoan clientLoan4 = new ClientLoan(200000, 36);
+			ClientLoan clientLoan4 = new ClientLoan(200000, 36, true);
 			client2.addClientLoan(clientLoan4);
 			loan3.addClientLoan(clientLoan4);
 			clientLoanRepo.save(clientLoan4);

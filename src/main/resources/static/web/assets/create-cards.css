@@ -217,3 +217,25 @@ form{
     border-radius: 5px;
     background-color: red;
 } */
+
+/* FOOTER */
+
+@media screen and (max-width: 768px) {
+    footer a {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 2rem;
+        width: 2rem !important;
+        color: transparent;
+        text-decoration: none;
+        font-size: 0;
+    }
+    
+    footer a img {
+        margin-right: 0.5rem;
+        height: 2rem;
+    }
+}

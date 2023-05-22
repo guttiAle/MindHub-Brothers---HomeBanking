@@ -9,18 +9,27 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+//@EnableWebSecurity
+//@Configuration
+//public class WebAuthorization {
+//    @Bean
+//    protected SecurityFilterChain filterchain(HttpSecurity http) throws Exception {
+//        http.authorizeRequests()
+
+@CrossOrigin
 @EnableWebSecurity
 @Configuration
 public class WebAuthorization {
-
     @Bean
     protected SecurityFilterChain filterchain(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        //Cross-Origin Resource Sharing
+        http.cors().and().authorizeRequests()
 
 //                PERMIT ALL
                 .antMatchers("/web/index.html/**").permitAll()
@@ -28,7 +37,7 @@ public class WebAuthorization {
                 .antMatchers("/web/scripts/**").permitAll()
                 .antMatchers("/api/login").permitAll()
                 .antMatchers("/api/logout").permitAll()
-
+                .antMatchers("/api/transactions").permitAll()
 
 //                CLIENT
                 .antMatchers(HttpMethod.POST, "/api/clients/current").hasAuthority("CLIENT")
@@ -43,6 +52,9 @@ public class WebAuthorization {
                 .antMatchers("/web/transfers.html").hasAuthority("CLIENT")
                 .antMatchers("/api/loans").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.POST,"/api/loans").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.POST,"/api/clients/current/cards/delete").hasAuthority("CLIENT")
+
+
 
 
 //                ADMIN
@@ -55,6 +67,7 @@ public class WebAuthorization {
                 .antMatchers(HttpMethod.GET, "/api/accounts").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.PATCH, "/api/accounts/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.GET, "/api/accounts/**").hasAuthority("ADMIN")
+//                .antMatchers(HttpMethod.POST, "/api/loans/create-new-loan").hasAuthority("ADMIN")
         ;
 
         http.formLogin()

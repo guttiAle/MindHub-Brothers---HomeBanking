@@ -11,54 +11,64 @@
 
 </head>
 <body style="background: linear-gradient(135deg, hsl(230, 40%, 12%), hsl(230, 20%, 7%)); display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0;">
-    <div style="width: 90%; min-height: 100vh; background-color: #C0C0C0; display: flex;" id="app" class="flex-column flex-sm-row">
-        <div style="width: 100%; display: flex; justify-content: center; align-items: center;" class="flex-column flex-sm-column">
-            <img src="./assets/images/noTextLogoDark.png" alt="logo" style="width: 10rem;" class="m-sm-5 m-0 col-sm-4 col-12">
-            <video controls loop autoplay class="col-6" style=" border: 1px solid #12162A; border-radius: 10px;">
-                <source src="./assets/images/mindHubBrothersVideo.mp4" type="video/mp4">
-            </video>
+    <div style="width: 90%; min-height: 100vh; background-color: #C0C0C0; display: flex;" id="app" class="flex-column flex-sm-column">
+        <div class="d-flex flex-column flex-sm-row">
+            <div style="width: 100%; display: flex; justify-content: center; align-items: center;" class="flex-column flex-sm-column">
+                <img src="./assets/images/noTextLogoDark.png" alt="logo" style="width: 10rem;" class="m-sm-5 m-0 col-sm-4 col-12">
+                <video controls loop autoplay class="col-10 col-sm-6" style=" border: 1px solid #12162A; border-radius: 10px;">
+                    <source src="./assets/images/mindHubBrothersVideo.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="login-box col-12 col-sm-4" style="margin-right: 5rem; margin-top: 2rem; display: flex; flex-direction: column; justify-content: center;">
+                <h2>REGISTER</h2>
+                <form @submit.prevent="register">
+                    <div class="user-box">
+                        <input type="text" name="" required="" v-model="firstName">
+                        <label>First Name</label>
+                    </div>
+                    <div class="user-box">
+                        <input type="text" name="" required="" v-model="lastName">
+                        <label>Last Name</label>
+                    </div>
+                    <div class="user-box">
+                        <input type="email" name="" required="" v-model="email">
+                        <label>E-Mail</label>
+                    </div>
+                    <div class="user-box">
+                        <input type="password" name="" required="" v-model="password">
+                        <label>Password</label>
+                    </div>
+                    <div class="user-box">
+                        <input type="password" name="" required="" v-model="confirmPassword">
+                        <label>Confirm password</label>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <button type="submit">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            Create account
+                        </button>
+                    </div>
+                    <p style="color: #C0C0C0; margin-top: 3.5rem;">*Already have an account?</p>
+                    <a href="./index.html">Sign in</a>
+                </form>
+                <p v-if="error" class="error-message" style="color: #C0C0C0;">{{ error }}</p>
+            </div>
         </div>
-        <div class="login-box col-12 col-sm-4" style="margin-right: 5rem; display: flex; flex-direction: column; justify-content: center;">
-            <h2>REGISTER</h2>
-            <form @submit.prevent="register">
-                <div class="user-box">
-                    <input type="text" name="" required="" v-model="firstName">
-                    <label>First Name</label>
-                </div>
-                <div class="user-box">
-                    <input type="text" name="" required="" v-model="lastName">
-                    <label>Last Name</label>
-                </div>
-                <div class="user-box">
-                    <input type="email" name="" required="" v-model="email">
-                    <label>E-Mail</label>
-                </div>
-                <div class="user-box">
-                    <input type="password" name="" required="" v-model="password">
-                    <label>Password</label>
-                </div>
-                <div class="user-box">
-                    <input type="password" name="" required="">
-                    <label>Confirm password</label>
-                </div>
-                <div style="display: flex; align-items: center;">
-                    <button type="submit">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        Create account
-                    </button>
-                </div>
-                <p style="color: #C0C0C0; margin-top: 3.5rem;">*Already have an account?</p>
-                <a href="./index.html">Sign in</a>
-            </form>
-            <p v-if="error" class="error-message" style="color: #C0C0C0;">{{ error }}</p>
-        </div>
+        <footer style="width: 95%; min-height: 4rem; border: 1px solid black; margin-bottom: 1.5rem; margin-top: 3rem; background-color: #12162A; display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; padding: 1rem; gap: 1rem; margin-left: auto; margin-right: auto; border: 1px solid #12162A; border-radius: 10px;">
+            <a href="https://goo.gl/maps/HDS4JhD6fSMrPmxm9" style="color: #C0C0C0; text-decoration: none; height: 2rem; width: 15rem; text-align: center;"> <img src="./assets/images/ubicationLigth.png" alt="ubication" style="height: 2rem; margin-right: 0.5rem;"> SAN RAFAEL, MENDOZA</a>
+            <a href="http://www.linkedin.com/in/agustin-martinez-b26978217" style="color: #C0C0C0; text-decoration: none; height: 2rem;  width: 15rem; text-align: center;"><img src="./assets/images/logoLinkedInLigth.png" alt="logoLinkedIn" style="height: 2rem; margin-right: 0.5rem;">AGUSTIN MARTINEZ</a>
+            <a href="https://github.com/guttiAle" style="color: #C0C0C0; text-decoration: none; height: 2rem; width: 15rem; text-align: center;"> <img src="./assets/images/logoGitHubLigth.png" alt="logoGitHub" style="color: #12162A; text-decoration: none; height: 2rem;"> GITHUB</a>
+            <a href="mailto:gutin97agustin.martinez@gmail.com" style="color: #C0C0C0; text-decoration: none; height: 2rem; width: 15rem; text-align: center;"> <img src="./assets/images/logoEMailLigth.png" alt="logoGitHub" style="color: #12162A; text-decoration: none; height: 2rem;"> E-MAIL</a>
+        </footer>
     </div>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <script src="./scripts/register.js"></script>
 </body>
 </html>

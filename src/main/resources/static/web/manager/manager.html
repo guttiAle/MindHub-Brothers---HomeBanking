@@ -9,9 +9,32 @@
     <title>Home Banking</title>
     <link rel="stylesheet" href="./style.css">
 </head>
-<body id="app">
-    <h1 style="text-align: center;">Home Banking</h1>
-    <div style="min-height: 70vh; width: 100%; display: flex; align-items: start; justify-content: center; gap: 3rem;">
+<body id="app" style="background-color: #C0C0C0;">
+    <div style="height: 90vh; display: flex; align-items: center; flex-direction: column; gap: 5rem; background-color: #C0C0C0;">
+        <h1 style="text-align: center;">Home Banking - MANAGER</h1>
+        <!-- FORM CREATE NEW LOAN -->
+        <div style="height: 20rem; width: 20rem; border: 1px solid black; display: flex; align-items: center; flex-direction: column; background-color: #12162A; color: #C0C0C0; border-radius: 10px; ">
+            <h3>CREATE NEW LOAN</h3>
+            <form>
+                <label for="nombre">Loan name:</label>
+                <input type="text" id="nombre" name="nombre" placeholder="newLoanName" required v-model="loanName" ><br><br>
+        
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" name="amount" placeholder="150000" required v-model="amount"><br><br>
+        
+                <label for="interest">Interest:</label>
+                <input type="number" id="interest" name="interest" placeholder="0.2" required v-model="interest"><br><br>
+        
+                <label for="payments">Payments:</label>
+                <input type="text" id="payments" name="payments" placeholder="[6,12,18,24]" required v-model="payments"><br><br>
+                <button @click.prevent="createNewLoan">CREATE</button>
+            </form>
+        </div>
+    </div>
+    <button @click.prevent="logout">
+        <span><a href="#" style="text-decoration: none;">LOG OUT</a></span>
+    </button>
+    <!-- <div style="min-height: 70vh; width: 100%; display: flex; align-items: start; justify-content: center; gap: 3rem;">
         <form class="col-5" style="margin: 0;  border: 1px solid rgb(141, 74, 74); border-radius: 10px; padding: 1rem;" @submit="addClient">
             <h2>Client Manager</h2>
             <div class="mb-3">
@@ -49,22 +72,24 @@
                 </tr>
                 </tbody>
             </table>
-        </div>
-    </div>
-    <div style="width: 100%; align-items: center; display: flex; justify-content: center; flex-direction: column;"> 
+        </div> 
+    </div>-->
+    <!-- <div style="width: 100%; align-items: center; display: flex; justify-content: center; flex-direction: row; gap: 10rem;"> 
         <div class="col-4 align-items-center" style="background-color: rgb(190, 210, 212); border: 1px solid brown; border-radius: 10px; padding: 1rem;">
             <h2 style="text-align: center;">Client REST response</h2>
             <pre style="overflow: scroll; height: 35rem;"><p>{{data}}</p></pre>
         </div>  
-    </div>
 
-    <button @click.prevent="logout">
-        <span><a href="#" style="text-decoration: none;">LOG OUT</a></span>
-    </button>
+    </div> -->
+
+
+
     <a href="http://localhost:8080/h2-console">H2-CONSOLE</a>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <script src="./manager.js"></script>
 </body>
 </html>

@@ -1,14 +1,16 @@
 const {createApp} = Vue
 let valorID = (new URLSearchParams(location.search)).get("id")
 // const url = `http://localhost:8080/api/accounts/${valorID}`
-const url = `http://localhost:8080/api/clients/current`
+const url = `/api/clients/current`
 
 createApp({
     data(){
         return{
             data: [],
             accounts: [],
-            account: []
+            account: [],
+            fromDate: '',
+            toDate: ''
         }
     },
     created(){
@@ -24,14 +26,6 @@ createApp({
     },
     methods: {
         logout() {
-            // axios
-            //     .post('/api/logout')
-            //     .then(response => {
-            //     window.location.replace('./index.html');
-            // })
-            // .catch(error => {
-            //     console.error(error);
-            // })}
             Swal.fire({
                 title: 'Sure you want to log out?',
                 icon: 'warning',
@@ -62,6 +56,45 @@ createApp({
 
                     this.account = list[i]
                 }
+            }
+        },
+        getTransactionsHistory(){
+            console.log('From:', this.fromDate)
+            console.log('To:', this.toDate)
+            console.log(this.account.number)
+            if(this.fromDate.length == 0 || this.toDate.length == 0){
+                axios.get('/api/transactions', `accountNumber=${this.account.number}&start=all&end=all`)
+                axios({
+                    method: 'GET',
+                    url: '/api/transactions',
+                    responseType: 'blob', // Especificamos que la respuesta es un archivo blob
+                    params: {
+                        accountNumber: `${this.account.number}`,
+                        start: 'all',
+                        end: 'all'
+                        }
+                    })
+                        .then(response => {
+                        // Crear una URL del blob de la respuesta
+                        const url = window.URL.createObjectURL(new Blob([response.data]));
+                    
+                        // Crear un enlace para descargar el archivo
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.setAttribute('download', 'transaction-history.pdf');
+                        document.body.appendChild(link);
+                    
+                        // Hacer clic en el enlace para iniciar la descarga
+                        link.click();
+                    
+                        // Liberar la URL del blob
+                        window.URL.revokeObjectURL(url);
+                        })
+                        .catch(error => {
+                        console.error(error);
+                });
+            } else {
+                window.location.replace(`/api/transactions?accountNumber=${this.account.number}&start=${this.fromDate}&end=${this.toDate}`)
             }
         }
     }

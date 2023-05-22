@@ -1,10 +1,12 @@
 package com.mindhub.homebanking.controllers;
 
+import com.mindhub.homebanking.dtos.CardDTO;
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.CardRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.service.CardService;
 import com.mindhub.homebanking.service.ClientService;
+import com.mindhub.homebanking.utils.CardUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @RestController
 public class CardController {
@@ -23,30 +26,51 @@ public class CardController {
     @Autowired
     private CardService cardService;
 
-    @RequestMapping(path = "/api/clients/current/cards", method = RequestMethod.POST)
+    @GetMapping("/api/clients/current/cards")
+    public List<CardDTO> activeCards(Authentication authentication){
+        return cardService.getActiveCards(clientService.getCurrentClient(authentication));
+    }
+
+    @PostMapping("/api/clients/current/cards/delete")
+    public ResponseEntity<Object> deleteCards(Authentication authentication,@RequestParam String number){
+        Client client = clientService.findByEmail(authentication.getName());
+        Card card = cardService.getCardByNumber(number);
+        if (card == null){
+            return new ResponseEntity<>("The card does not exist", HttpStatus.FORBIDDEN);
+        }
+        if (client == card.getCardHolder()){
+            cardService.deleteCard(number);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        } else {
+            return new ResponseEntity<>("You need to log in to delete a card", HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @PostMapping("/api/clients/current/cards")
     public ResponseEntity<Object> createCard(Authentication authentication, @RequestParam String color, @RequestParam String type) {
         Client clientOwner = clientService.findByEmail(authentication.getName());
+        String cardNumber = CardUtils.randomNumber();
+        int cvv = CardUtils.randomCvv();
         int contDebit = 0;
         int contCredit = 0;
         List<String> colorCREDIT = new ArrayList<>();
         List<String> colorDEBIT = new ArrayList<>(); 
 
         for (Card i : clientOwner.getCards()){
-            if (i.getType().equals(CardType.CREDIT)){
+            if (i.getType().equals(CardType.CREDIT) && i.isStatus() == true){
                 contCredit++;
                 colorCREDIT.add(i.getColor().name());
-            } else if (i.getType().equals(CardType.DEBIT)){
+            } else if (i.getType().equals(CardType.DEBIT) && i.isStatus() == true){
                 contDebit++;
                 colorDEBIT.add(i.getColor().name());
             }
         }
-
         if(type.equals("CREDIT") && (contCredit < 3) && !colorCREDIT.contains(color)){
-            Card newCard = new Card(clientOwner.getFirstName() + " " + clientOwner.getLastName(), CardType.valueOf(type) , CardColor.valueOf(color), randomNumber(), randomCvv(), LocalDateTime.now(), LocalDateTime.now().plusYears(5));
+            Card newCard = new Card(clientOwner.getFirstName() + " " + clientOwner.getLastName(), CardType.valueOf(type) , CardColor.valueOf(color), cardNumber, cvv, LocalDateTime.now(), LocalDateTime.now().plusYears(5));
             clientOwner.addCardHolder(newCard);
             cardService.saveCard(newCard);
         } else if(type.equals("DEBIT") && (contDebit < 3) && !colorDEBIT.contains(color)) {
-            Card newCard = new Card(clientOwner.getFirstName() + " " + clientOwner.getLastName(), CardType.valueOf(type), CardColor.valueOf(color), randomNumber(), randomCvv(), LocalDateTime.now(), LocalDateTime.now().plusYears(5));
+            Card newCard = new Card(clientOwner.getFirstName() + " " + clientOwner.getLastName(), CardType.valueOf(type), CardColor.valueOf(color), cardNumber, cvv, LocalDateTime.now(), LocalDateTime.now().plusYears(5));
             clientOwner.addCardHolder(newCard);
             cardService.saveCard(newCard);
         } else {
@@ -54,27 +78,6 @@ public class CardController {
         }
         return new ResponseEntity<>( HttpStatus.CREATED);
     }
-
-//    Number generator methods
-    public int randomCvv() {
-        int num = (int) ((Math.random() * 899) + 100);
-        return num;
-    }
-
-    public  String randomNumber() {
-        Random randomNum = new Random();
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < 4; i++) {
-            int num = randomNum.nextInt(10000);
-            sb.append(String.format("%04d", num));
-            if (i < 3) {
-                sb.append("-");
-            }
-        }
-        return sb.toString();
-    }
-
 }
 
 

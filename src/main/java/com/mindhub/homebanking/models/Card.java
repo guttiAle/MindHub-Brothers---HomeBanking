@@ -15,6 +15,7 @@ public class Card {
     private int cvv;
     private LocalDateTime fromDate;
     private LocalDateTime thruDate;
+    private boolean status;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="cardHolder_id")
     private Client cardHolder;
@@ -29,6 +30,7 @@ public class Card {
         this.cvv = cvv;
         this.fromDate = fromDate;
         this.thruDate = thruDate;
+        this.status = true;
     }
 
 //    GETTERS
@@ -51,6 +53,9 @@ public class Card {
 
     public String getCardOwner() {return cardOwner;}
 
+    public boolean isStatus() {return status;}
+
+
     //    SETTERS
 
     public void setType(CardType type) {this.type = type;}
@@ -68,4 +73,6 @@ public class Card {
     public void setCardHolder(Client cardHolder) {this.cardHolder = cardHolder;}
 
     public void setCardOwner(String cardOwner) {this.cardOwner = cardOwner;}
+
+    public void setStatus(boolean status) {this.status = status;}
 }

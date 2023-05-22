@@ -3,6 +3,7 @@ package com.mindhub.homebanking.service.implement;
 import com.mindhub.homebanking.dtos.AccountDTO;
 import com.mindhub.homebanking.dtos.ClientDTO;
 import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.Card;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.service.AccountService;
@@ -38,5 +39,10 @@ public class AccountServiceImplement implements AccountService {
         return optionalAccount.map(account -> new AccountDTO(account)).orElse(null);
     }
 
-
+    @Override
+    public void deleteAccount(String number) {
+        Account selectAccount = accountRepository.findByNumber(number);
+        selectAccount.setStatus(false);
+        accountRepository.save(selectAccount);
+    }
 }
