@@ -19,7 +19,7 @@
 //import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
 //
 //
-////@DataJpaTest // Este es para PostgreSQL
+//@DataJpaTest // Este es para PostgreSQL
 //@SpringBootTest // Este es para h2-console
 //@AutoConfigureTestDatabase(replace = NONE)
 //public class RepositoryTest {

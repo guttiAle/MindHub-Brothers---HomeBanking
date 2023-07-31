@@ -15,7 +15,6 @@ public class ClientLoan {
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
     private double amount;
-
     private int payments;
     private boolean status;
     @ManyToOne(fetch = FetchType.EAGER)

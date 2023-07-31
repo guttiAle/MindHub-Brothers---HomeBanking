@@ -85,7 +85,6 @@ public class AccountController {
             }
         } else {
             return new ResponseEntity<>("Account type does not exist", HttpStatus.FORBIDDEN);
-
         }
         return new ResponseEntity<>( HttpStatus.CREATED);
     }
