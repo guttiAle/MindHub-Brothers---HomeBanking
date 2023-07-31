@@ -51,7 +51,7 @@ public class PDFGeneratorImplement implements PDFGeneratorService {
         title.setSpacingAfter(10);
         document.add(title);
 
-        Paragraph paragraph = new Paragraph("Welcome " + account.getClient().getFirstName() + " here are the transactions of your account: " + account.getNumber());
+        Paragraph paragraph = new Paragraph("Welcome, here are the transactions of your account: ");
         paragraph.setAlignment(Element.ALIGN_CENTER);
         paragraph.setSpacingAfter(10);
         document.add(paragraph);
